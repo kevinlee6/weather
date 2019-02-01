@@ -12,11 +12,11 @@ class Api::UsersController < ApplicationController
     render json: @user
   end
 
-  # POST /api/users
+  # POST /api/users 
   def create
-    # reject if password != confirmation
+    # reject if password != password_confirmation
     user = params[:user]
-    error = handle_create_errors(user)
+    error = UsersHelper.handle_create_errors(user)
     return render json: error if error
 
     @user = User.new(user_params)
@@ -49,11 +49,5 @@ class Api::UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:email, :password)
-    end
-
-    def handle_create_errors(user)
-      password, confirm = user[:password], user[:confirm]
-      error_message = "Passwords do not match"
-      { "error": error_message } if password != confirm
     end
 end
