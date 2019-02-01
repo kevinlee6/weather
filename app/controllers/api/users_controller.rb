@@ -16,13 +16,10 @@ class Api::UsersController < ApplicationController
   def create
     # reject if password != confirmation
     user = params[:user]
-    password, confirm = user[:password], user[:confirm]
-    error = handle_create_errors(password, confirm)
-
+    error = handle_create_errors(user)
     return render json: error if error
 
-    @user = User.new(user_params.except :confirm)
-
+    @user = User.new(user_params)
     if @user.save
       # Don't need anyone seeing password-related stuff after save
       render json: @user.to_json(except: :password_digest), status: :created
@@ -51,10 +48,11 @@ class Api::UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :confirm)
+      params.require(:user).permit(:email, :password)
     end
 
-    def handle_create_errors(password, confirm)
+    def handle_create_errors(user)
+      password, confirm = user[:password], user[:confirm]
       error_message = "Passwords do not match"
       { "error": error_message } if password != confirm
     end
