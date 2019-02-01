@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  namespace :api, defaults: { format: :json } do
+  scope :api, defaults: { format: :json } do
     resources :users
-    resources :sessions
+    scope :auth do
+      post '/', to: "auth#create"
+    end
   end
 end
