@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   before_save { email.downcase! }
 
   EMAIL_REGEX = /.+@.+\..+/
@@ -7,6 +8,4 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     length: { maximum: 254 }
   validates :password, presence: true, length: { minimum: 6 }
-
-  has_secure_password
 end

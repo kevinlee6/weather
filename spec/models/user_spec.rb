@@ -40,6 +40,12 @@ RSpec.describe User, type: :model do
         bad_emails << build(:user, email: '@m.c').save
         expect(bad_emails.any?).to eq false
       end
+
+      it 'should be lowercase after save' do
+        user = create(:user, email: 'LOWERCASE@EMAIL.COM')
+        is_downcase = user.email == user.email.downcase
+        expect(is_downcase).to eq true
+      end
     end
 
     context 'password' do
@@ -53,6 +59,13 @@ RSpec.describe User, type: :model do
         user = build(:user, password: 'fail')
         saved = user.save
         expect(saved).to eq false
+      end
+
+      it 'should be hashed after save' do
+        password = 'password'
+        user = create(:user, password: password)
+        is_not_same = user.password_digest && user.password_digest != password
+        expect(is_not_same).to eq true
       end
     end
   end
