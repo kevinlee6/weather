@@ -20,16 +20,16 @@ export default (state = initialState, action) => {
       };
     }
     case AUTH_USER_SUCCESS: {
-      const token = payload.token;
+      const { email } = payload;
       return {
         ...state,
-        authenticated: token,
+        authenticated: email,
         error: '',
         loading: false,
       };
     }
     case AUTH_USER_FAILURE: {
-      const error = payload.error;
+      const { error } = payload;
       return {
         ...state,
         authenticated: '',

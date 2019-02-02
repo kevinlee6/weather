@@ -4,3 +4,7 @@ import styled from 'styled-components';
 export const PrefixIcon = styled(Icon)`
   color: rgba(0, 0, 0, 0.3);
 `;
+
+export const ErrorSpan = styled.span`
+  color: red;
+`;

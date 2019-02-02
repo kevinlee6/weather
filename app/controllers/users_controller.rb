@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include AuthHelper
   before_action :set_user, only: [:show, :update, :destroy]
 
   # Don't want users to potentially access all users for this app
@@ -20,9 +21,9 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     if @user.save
-      
+      sign_in
       # Don't need anyone seeing password-related stuff after save
-      render json: @user.to_json(except: :password_digest), status: :created
+      # render json: @user.to_json(only: :email), status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end

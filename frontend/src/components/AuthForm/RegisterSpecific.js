@@ -1,12 +1,12 @@
 import React from 'react';
-import { PrefixIcon } from './Styled';
+import { PrefixIcon, ErrorSpan } from './Styled';
 import { Form, Input } from 'antd';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 
 export default () => (
   <Form.Item>
     <Field
-      name="confirm"
+      name="password_confirmation"
       render={({ field }) => (
         <Input.Password
           {...field}
@@ -15,5 +15,8 @@ export default () => (
         />
       )}
     />
+    <ErrorSpan>
+      <ErrorMessage name="password_confirmation" />
+    </ErrorSpan>
   </Form.Item>
 );

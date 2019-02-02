@@ -7,6 +7,14 @@ import Landing from 'components/Landing';
 import AuthForm from 'components/AuthForm';
 import { SIGN_IN, REGISTER } from 'constant';
 import './index.css';
+
+// change global config
+import { message } from 'antd';
+import axios from 'axios';
+axios.defaults.baseURL =
+  process.env.REACT_APP_HEROKU_URL || 'http://localhost:3001/api/';
+message.config({ maxCount: 2, duration: 1 });
+
 const root = document.getElementById('root');
 
 ReactDOM.render(

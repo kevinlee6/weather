@@ -12,7 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'mini_magick', '~> 4.8'
 # gem 'capistrano-rails', group: :development
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'rack-cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'jwt'
 
 group :development, :test do
