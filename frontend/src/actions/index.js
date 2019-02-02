@@ -16,3 +16,8 @@ export const verify = () => ({
   type: AUTH_USER,
   callAPI: () => axios.post('/auth/verify', {}, options),
 });
+
+export const signOut = () => ({
+  type: AUTH_USER,
+  callAPI: () => axios.delete('/auth', options),
+});

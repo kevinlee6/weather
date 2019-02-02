@@ -5,7 +5,8 @@ class AuthController < ApplicationController
   end
 
   def destroy
-    cookies.delete :token
+    cookies.delete(:token, domain: 'localhost')
+    render json: { email: '' }
   end
 
   def verify
