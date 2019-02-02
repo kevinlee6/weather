@@ -7,7 +7,8 @@ module AuthHelper
     email, password = params[:email], params[:password]
     user = User.find_by(email: email)
     pass = user && user.authenticate(password)
-    return if !pass
+    error_message = 'Username or password incorrect'
+    return render json: { error: error_message } if !pass
     payload = { email: email }
     token = self.gen_jwt(payload)
 
@@ -17,7 +18,6 @@ module AuthHelper
       render json: {email: email}
     else
       cookies.delete :token
-      error_message = 'Username or password incorrect'
       render json: { error: error_message }, status: 404
     end
   end

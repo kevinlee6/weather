@@ -28,16 +28,23 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
   return callAPI().then(
     resolve => {
       const { email } = resolve.data;
-      dispatch({ type: SUCCESS, payload: { email } });
+      if (email) {
+        dispatch({ type: SUCCESS, payload: { email } });
+      } else {
+        dispatch({ type: FAILURE, payload: { error: 'There is an error.' } });
+      }
+      return resolve.data;
     },
     reject => {
-      const { data } = reject.response;
+      const data = reject.response && reject.response.data;
+      if (!data) return 'Error';
       const keys = Object.keys(data);
       const firstKey = keys[0];
       const firstError = data[firstKey][0];
       // Show only one error, so user doesn't get overwhelmed
       const error = `${titleCase(firstKey)} ${firstError}`;
       dispatch({ type: FAILURE, payload: { error } });
+      return { error: error };
     }
   );
 };
