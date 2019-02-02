@@ -8,7 +8,7 @@ module AuthHelper
     user = User.find_by(email: email)
     pass = user && user.authenticate(password)
     return if !pass
-    payload = { user: user.id }
+    payload = { email: email }
     token = self.gen_jwt(payload)
 
     if token

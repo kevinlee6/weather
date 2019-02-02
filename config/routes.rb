@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users
     scope :auth do
       post '/', to: "auth#create"
+      post '/verify', to: "auth#verify"
     end
   end
 end

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-const AuthButtons = ({ isSignedIn }) => (
+const Authenticated = () => <Button>Sign out</Button>;
+
+const NotAuthenticated = () => (
   <Button.Group>
     <Button>
       <Link to="/signin">Sign In</Link>
@@ -14,4 +16,12 @@ const AuthButtons = ({ isSignedIn }) => (
   </Button.Group>
 );
 
-export default connect(null)(AuthButtons);
+const AuthButtons = ({ authenticated }) =>
+  authenticated ? <Authenticated /> : <NotAuthenticated />;
+
+const mapStateToProps = state => {
+  const authenticated = state.auth.authenticated;
+  return { authenticated };
+};
+
+export default connect(mapStateToProps)(AuthButtons);
