@@ -11,7 +11,6 @@ import Buttons from './Buttons';
 import { register, signIn } from 'actions';
 import { REGISTER, SIGN_IN } from 'constant';
 import { SignInSchema, RegisterSchema } from './schema';
-import { titleCase } from 'helpers';
 
 const SForm = styled(Form)`
   width: 70%;
@@ -19,7 +18,7 @@ const SForm = styled(Form)`
 `;
 
 class AuthForm extends Component {
-  handleSubmit = (values, actions) => {
+  handleSubmit = values => {
     const { signIn, register, command, history } = this.props;
     switch (command) {
       case REGISTER: {
@@ -80,11 +79,11 @@ class AuthForm extends Component {
     return (
       <Formik
         initialValues={this.genInitialValues(command)}
-        onSubmit={(values, actions) => {
-          this.handleSubmit(values, actions);
+        onSubmit={values => {
+          this.handleSubmit(values);
         }}
         validationSchema={schema}
-        render={({ errors, status, touched, isSubmitting, field }) => (
+        render={({ field }) => (
           <SForm>
             <EmailAndPasswordFields field={field} />
             {this.renderSpecific(command, field)}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
@@ -20,20 +20,27 @@ class App extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, loading } = this.props;
     return (
-      <Layout>
-        <Header />
-        <SContent>{children}</SContent>
-        <Footer>Footer</Footer>
-      </Layout>
+      <Spin spinning={loading}>
+        <Layout>
+          <Header />
+          <SContent>{children}</SContent>
+          <Footer>Footer</Footer>
+        </Layout>
+      </Spin>
     );
   }
 }
 
+const mapStateToProps = state => {
+  const { loading } = state.auth;
+  return { loading };
+};
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { verify }
   )(App)
 );

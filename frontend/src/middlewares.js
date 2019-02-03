@@ -41,7 +41,7 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
       const keys = Object.keys(data);
       const firstKey = keys[0];
       const firstError = data[firstKey][0];
-      // Show only one error, so user doesn't get overwhelmed
+      // Show only one error at a time, so user doesn't get overwhelmed
       const error = `${titleCase(firstKey)} ${firstError}`;
       dispatch({ type: FAILURE, payload: { error } });
       return { error: error };

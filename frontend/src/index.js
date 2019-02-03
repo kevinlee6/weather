@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from 'Root';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from 'components/App';
-import Landing from 'components/Landing';
+import Home from 'components/Home';
 import AuthForm from 'components/AuthForm';
 import { SIGN_IN, REGISTER } from 'constant';
 import './index.css';
@@ -21,7 +21,7 @@ ReactDOM.render(
   <Root>
     <Router>
       <App>
-        <Route path="/" exact component={Landing} />
+        <Route path="/" exact component={Home} />
         <Route path="/signin" render={() => <AuthForm command={SIGN_IN} />} />
         <Route
           path="/register"
