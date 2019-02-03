@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from 'Root';
+import Root from './Root';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import App from 'components/App';
-import Home from 'components/Home';
-import AuthForm from 'components/AuthForm';
+import App from './components/App';
+import Home from './components/Home';
+import AuthForm from './components/AuthForm';
 import { SIGN_IN, REGISTER } from 'constant';
 import './index.css';
 
