@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import Logo from './HeaderTitle';
+import UnitButtons from './UnitButtons';
 import AuthButtons from './AuthButtons';
 import styled from 'styled-components';
 
@@ -17,7 +18,10 @@ export default class extends Component {
     return (
       <SHeader>
         <Logo />
-        <AuthButtons />
+        <div>
+          <UnitButtons />
+          <AuthButtons />
+        </div>
       </SHeader>
     );
   }

@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import WeatherForm from './WeatherForm';
+import WeatherContainer from './WeatherContainer';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  margin-bottom: 20px;
+`;
 
 const NotLoggedInMessage = () => (
-  <div>
+  <Div>
     Get the latest weather! Create an account or sign in to have access to saved
     locations.
-  </div>
+  </Div>
 );
 
 class Home extends Component {
@@ -19,7 +24,7 @@ class Home extends Component {
     return (
       <div>
         {this.renderIfAuth()}
-        <WeatherForm />
+        <WeatherContainer />
       </div>
     );
   }
