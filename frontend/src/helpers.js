@@ -9,12 +9,10 @@ export const titleCase = word => {
 };
 
 export const setUrl = payload => {
-  const { zip_code, city, country, unit } = payload;
+  const { query, country, unit } = payload;
   const commaCountry = country ? ',' + country : '';
   const KEY = process.env.REACT_APP_WEATHER;
-  return city
-    ? `https://api.openweathermap.org/data/2.5/weather?q=${city}${commaCountry}&appid=${KEY}&units=${unit}`
-    : `https://api.openweathermap.org/data/2.5/weather?q=${zip_code}${commaCountry}&appid=${KEY}&units=${unit}`;
+  return `https://api.openweathermap.org/data/2.5/weather?q=${query}${commaCountry}&appid=${KEY}&units=${unit}`;
 };
 
 export const urlFriendly = text => text.replace(/\s+/gi, '').toLowerCase();
@@ -26,13 +24,6 @@ export const suffixAsync = actionType => {
   const SUCCESS = TYPE + '_SUCCESS';
   const FAILURE = TYPE + '_FAILURE';
   return [REQUEST, SUCCESS, FAILURE];
-};
-
-export const validateZipAndCity = payload => {
-  const { zip_code, city } = payload;
-  const cityRegex = /[a-z][a-z\s.]+/i;
-
-  return zip_code || cityRegex.test(city);
 };
 
 // convert block built with separation of logic

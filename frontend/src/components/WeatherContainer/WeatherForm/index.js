@@ -1,35 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { Form as AntdForm, Input, Button, Select } from 'antd';
+import { Form as AntdForm, Input, Button } from 'antd';
 import { ErrorDiv } from 'components/Styled';
-import CityOrZipField from './CityOrZipField';
+import QueryField from './QueryField';
 import CountryField from './CountryField';
 import schema from './schema';
 import { fetchWeather } from 'actions';
-import { validateZipAndCity } from 'helpers';
-import styled from 'styled-components';
-
-const CITY = 'city';
-const ZIP = 'zip_code';
+import { QUERY } from 'constant';
 
 const FormItem = AntdForm.Item;
-const Option = Select.Option;
-
-const SSelect = styled(Select)`
-  width: 110px !important;
-`;
 
 class WeatherForm extends Component {
   state = {
     hasError: false,
-    cityOrZip: CITY,
   };
 
   handleSubmit = values => {
     const { fetchWeather, unit } = this.props;
     // Could alternatively use message error for flash message.
-    if (!validateZipAndCity(values)) return this.setState({ hasError: true });
     fetchWeather({ ...values, unit }).then(resolve => {
       console.log(resolve);
     });
@@ -39,17 +28,9 @@ class WeatherForm extends Component {
 
   clearError = () => {};
 
-  handleSelect = (value, resetForm) => {
-    const { cityOrZip } = this.state;
-    if (cityOrZip !== value) {
-      this.setState({ cityOrZip: value });
-      resetForm();
-    }
-  };
-
   render() {
-    const initialValues = { zip_code: '', city: '', country: '' };
-    const { hasError, cityOrZip } = this.state;
+    const initialValues = { query: '', country: '' };
+    const { hasError } = this.state;
     return (
       <Formik
         initialValues={initialValues}
@@ -57,26 +38,15 @@ class WeatherForm extends Component {
           this.handleSubmit(values);
         }}
         validationSchema={schema}
-        render={({ field, resetForm }) => (
+        render={() => (
           <React.Fragment>
             <Form
               onChange={this.clearError}
               className="ant-form ant-form-inline"
             >
               <FormItem>
-                <SSelect
-                  defaultValue={CITY}
-                  onChange={values =>
-                    this.handleSelect(values, () => resetForm(initialValues))
-                  }
-                >
-                  <Option value={CITY}>City</Option>
-                  <Option value={ZIP}>Zip Code</Option>
-                </SSelect>
-              </FormItem>
-              <FormItem>
                 <Input.Group compact>
-                  <CityOrZipField field={field} cityOrZip={cityOrZip} />
+                  <QueryField />
                   <CountryField />
                 </Input.Group>
               </FormItem>
@@ -89,9 +59,8 @@ class WeatherForm extends Component {
                 />
               </FormItem>
             </Form>
-            {<ErrorMessage component={ErrorDiv} name={CITY} /> || (
-              <ErrorMessage component={ErrorDiv} name={ZIP} />
-            )}
+            <ErrorMessage component={ErrorDiv} name={QUERY} />
+
             {hasError ? this.renderError() : null}
           </React.Fragment>
         )}
