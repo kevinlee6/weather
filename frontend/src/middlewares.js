@@ -27,13 +27,14 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
   // Response should return object with either token or error
   return callAPI().then(
     resolve => {
-      const { email } = resolve.data;
-      if (email) {
-        dispatch({ type: SUCCESS, payload: { email } });
-      } else {
+      const data = resolve && resolve.data;
+      const error = data && data.error;
+      if (error) {
         dispatch({ type: FAILURE, payload: { error: 'There is an error.' } });
+      } else {
+        dispatch({ type: SUCCESS, payload: data });
       }
-      return resolve.data;
+      return data;
     },
     reject => {
       const data = reject.response && reject.response.data;
@@ -44,7 +45,7 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
       // Show only one error at a time, so user doesn't get overwhelmed
       const error = `${titleCase(firstKey)} ${firstError}`;
       dispatch({ type: FAILURE, payload: { error } });
-      return { error: error };
+      return { error };
     }
   );
 };

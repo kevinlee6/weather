@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, SET_BACKGROUND, FETCH_WEATHER, SET_UNIT } from './types';
 import { APPJSON } from 'constant';
+import { setUrl } from 'helpers';
 
 const options = {
   headers: { Accept: APPJSON, 'Content-Type': APPJSON },
@@ -28,10 +29,9 @@ export const signOut = () => ({
 });
 
 export const fetchWeather = payload => {
-  const { zip_code, city, country } = payload;
   return {
     type: FETCH_WEATHER,
-    callAPI: () => axios.get(''),
+    callAPI: () => axios.get(setUrl(payload)),
   };
 };
 
