@@ -12,5 +12,3 @@ export const WEATHER = {
   THUNDERSTORM: 'thunderstorm',
   MIST: 'mist',
 };
-
-export const ZIP_REGEX = /\d{5}/;

@@ -28,12 +28,10 @@ export const signOut = () => ({
   callAPI: () => axios.delete('/auth', options),
 });
 
-export const fetchWeather = payload => {
-  return {
-    type: FETCH_WEATHER,
-    callAPI: () => axios.get(setUrl(payload)),
-  };
-};
+export const fetchWeather = payload => ({
+  type: FETCH_WEATHER,
+  callAPI: () => axios.get(setUrl(payload)),
+});
 
 export const setUnit = unit => ({
   type: SET_UNIT,

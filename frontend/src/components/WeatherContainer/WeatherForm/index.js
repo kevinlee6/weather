@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Form as AntdForm, Input, Button } from 'antd';
-import { ErrorDiv } from 'components/Styled';
+import { Form as AntdForm, Input, Button, Select } from 'antd';
+import { ErrorDiv, SInput } from 'components/Styled';
+import CityOrZipField from './CityOrZipField';
+import CountryField from './CountryField';
 import schema from './schema';
+import { fetchWeather } from 'actions';
 import { validateZipAndCity } from 'helpers';
 import styled from 'styled-components';
 
-const FormItem = AntdForm.Item;
+const CITY = 'city';
+const ZIP = 'zip_code';
 
-const SInput = styled(Input)`
-  width: ${props => props.width}% !important;
+const FormItem = AntdForm.Item;
+const Option = Select.Option;
+
+const SSelect = styled(Select)`
+  width: 110px !important;
 `;
 
 class WeatherForm extends Component {
   state = {
     hasError: false,
+    cityOrZip: CITY,
   };
 
   handleSubmit = values => {
+    const { fetchWeather, unit } = this.props;
     console.log(values);
     // Could alternatively use message error for flash message.
     if (!validateZipAndCity(values)) return this.setState({ hasError: true });
+    fetchWeather({ ...values, unit }).then(resolve => {
+      console.log(resolve);
+    });
   };
 
   renderError = () => (
@@ -30,13 +43,19 @@ class WeatherForm extends Component {
     </ErrorDiv>
   );
 
-  clearError = () => {
-    this.setState({ hasError: false });
+  clearError = () => {};
+
+  handleSelect = (value, resetForm) => {
+    const { cityOrZip } = this.state;
+    if (cityOrZip !== value) {
+      this.setState({ cityOrZip: value });
+      resetForm();
+    }
   };
 
   render() {
-    const initialValues = { zip_code: '10001', city: '', country: '' };
-    const { hasError } = this.state;
+    const initialValues = { zip_code: '', city: '', country: '' };
+    const { hasError, cityOrZip } = this.state;
     return (
       <Formik
         initialValues={initialValues}
@@ -44,39 +63,28 @@ class WeatherForm extends Component {
           this.handleSubmit(values);
         }}
         validationSchema={schema}
-        render={() => (
+        render={({ field, resetForm }) => (
           <React.Fragment>
             <Form
               onChange={this.clearError}
               className="ant-form ant-form-inline"
             >
               <FormItem>
-                <Input.Group compact>
-                  <Field
-                    name="city"
-                    render={({ field }) => (
-                      <SInput {...field} width={60} placeholder="City" />
-                    )}
-                  />
-                  <Field
-                    name="country"
-                    render={({ field }) => (
-                      <SInput
-                        {...field}
-                        width={40}
-                        placeholder="Country (optional)"
-                      />
-                    )}
-                  />
-                </Input.Group>
+                <SSelect
+                  defaultValue={CITY}
+                  onChange={values =>
+                    this.handleSelect(values, () => resetForm(initialValues))
+                  }
+                >
+                  <Option value={CITY}>City</Option>
+                  <Option value={ZIP}>Zip Code</Option>
+                </SSelect>
               </FormItem>
               <FormItem>
-                <Field
-                  name="zip_code"
-                  render={({ field }) => (
-                    <Input {...field} placeholder="Zip Code" maxLength={5} />
-                  )}
-                />
+                <Input.Group compact>
+                  <CityOrZipField field={field} cityOrZip={cityOrZip} />
+                  <CountryField />
+                </Input.Group>
               </FormItem>
               <FormItem>
                 <Button
@@ -87,8 +95,8 @@ class WeatherForm extends Component {
                 />
               </FormItem>
             </Form>
-            <ErrorMessage component={ErrorDiv} name="zip_code" />
-            <ErrorMessage component={ErrorDiv} name="city" />
+            <ErrorMessage component={ErrorDiv} name={ZIP} />
+            <ErrorMessage component={ErrorDiv} name={CITY} />
             {hasError ? this.renderError() : null}
           </React.Fragment>
         )}
@@ -97,4 +105,12 @@ class WeatherForm extends Component {
   }
 }
 
-export default WeatherForm;
+const mapStateToProps = state => {
+  const { unit } = state;
+  return { unit };
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchWeather }
+)(WeatherForm);

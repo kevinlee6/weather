@@ -1,5 +1,5 @@
 import { FETCH_WEATHER } from 'actions/types';
-import { suffixAsync } from 'helpers';
+import { suffixAsync, extractData } from 'helpers';
 const [
   FETCH_WEATHER_REQUEST,
   FETCH_WEATHER_SUCCESS,
@@ -8,6 +8,7 @@ const [
 
 const initialState = {
   loading: false,
+  weather: '',
   city: '',
   country: '',
   temp: '',
@@ -27,10 +28,11 @@ export default (state = initialState, action) => {
       };
     }
     case FETCH_WEATHER_SUCCESS: {
+      const data = extractData(payload);
       return {
         ...state,
         loading: false,
-        ...payload,
+        ...data,
       };
     }
     case FETCH_WEATHER_FAILURE: {

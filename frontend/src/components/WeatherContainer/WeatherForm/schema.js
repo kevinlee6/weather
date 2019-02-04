@@ -4,11 +4,7 @@ export default Yup.object().shape(
   {
     zip_code: Yup.string().when('city', {
       is: city => !city,
-      then: Yup.string()
-        .required('Either zip code or city must be provided.')
-        .matches(/\d{5}/, {
-          message: 'Zip code must be 5 digits.',
-        }),
+      then: Yup.string().required('Either zip code or city must be provided.'),
     }),
     city: Yup.string().when('zip_code', {
       is: zip_code => !zip_code,

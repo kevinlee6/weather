@@ -1,7 +1,3 @@
-import { ZIP_REGEX } from 'constant';
-
-const validateZip = zip => ZIP_REGEX.test(zip);
-
 export const titleCase = word => {
   if (word || typeof word === String) {
     const firstLetter = word[0].toUpperCase();
@@ -12,10 +8,11 @@ export const titleCase = word => {
 
 export const setUrl = payload => {
   const { zip_code, city, country, unit } = payload;
-  const KEY = process.env.WEATHER;
-  return validateZip
-    ? `https://api.openweathermap.org/data/2.5/weather?q=${zip_code},${country}&appid=${KEY}&units=${unit}`
-    : `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${KEY}&units=${unit}`;
+  const commaCountry = country ? ',' + country : '';
+  const KEY = process.env.REACT_APP_WEATHER;
+  return city
+    ? `https://api.openweathermap.org/data/2.5/weather?q=${city}${commaCountry}&appid=${KEY}&units=${unit}`
+    : `https://api.openweathermap.org/data/2.5/weather?q=${zip_code}${commaCountry}&appid=${KEY}&units=${unit}`;
 };
 
 export const urlFriendly = text => text.replace(/\s+/gi, '').toLowerCase();
@@ -33,8 +30,19 @@ export const validateZipAndCity = payload => {
   const { zip_code, city } = payload;
   const cityRegex = /[a-z][a-z\s.]+/i;
 
-  return validateZip(zip_code) || cityRegex.test(city);
+  return zip_code || cityRegex.test(city);
 };
+
+export const extractData = data => ({
+  weather: data.weather[0].main,
+  city: data.name,
+  country: data.sys.country,
+  temp: data.main.temp,
+  minTemp: data.main.temp_min,
+  maxTemp: data.main.temp_max,
+  humidity: data.main.humidity,
+  windSpeed: data.wind.speed,
+});
 
 // Handled by Formik/Yup
 // export const validateRegister = fieldsObj => {
