@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import { Form as AntdForm, Input, Button, Select } from 'antd';
-import { ErrorDiv, SInput } from 'components/Styled';
+import { ErrorDiv } from 'components/Styled';
 import CityOrZipField from './CityOrZipField';
 import CountryField from './CountryField';
 import schema from './schema';
@@ -28,7 +28,6 @@ class WeatherForm extends Component {
 
   handleSubmit = values => {
     const { fetchWeather, unit } = this.props;
-    console.log(values);
     // Could alternatively use message error for flash message.
     if (!validateZipAndCity(values)) return this.setState({ hasError: true });
     fetchWeather({ ...values, unit }).then(resolve => {
@@ -36,12 +35,7 @@ class WeatherForm extends Component {
     });
   };
 
-  renderError = () => (
-    <ErrorDiv>
-      Both zip code and city are invalid. Either zip code must be 5 digits or
-      city must be at least 2 letters.
-    </ErrorDiv>
-  );
+  renderError = () => <ErrorDiv>Either zip code or city are invalid.</ErrorDiv>;
 
   clearError = () => {};
 
@@ -95,8 +89,9 @@ class WeatherForm extends Component {
                 />
               </FormItem>
             </Form>
-            <ErrorMessage component={ErrorDiv} name={ZIP} />
-            <ErrorMessage component={ErrorDiv} name={CITY} />
+            {<ErrorMessage component={ErrorDiv} name={CITY} /> || (
+              <ErrorMessage component={ErrorDiv} name={ZIP} />
+            )}
             {hasError ? this.renderError() : null}
           </React.Fragment>
         )}

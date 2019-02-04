@@ -4,12 +4,12 @@ export default Yup.object().shape(
   {
     zip_code: Yup.string().when('city', {
       is: city => !city,
-      then: Yup.string().required('Either zip code or city must be provided.'),
+      then: Yup.string().required('Either city or zip code must be provided.'),
     }),
     city: Yup.string().when('zip_code', {
       is: zip_code => !zip_code,
       then: Yup.string()
-        .required('If both are entered, zip code will have priority.')
+        .required('Either city or zip code must be provided.')
         .matches(/^[a-z][a-z\s.]+/i, {
           message: 'City must be at least two letters.',
         }),
