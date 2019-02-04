@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
-import { setUnit } from 'actions';
+import { setUnit, updateWeather } from 'actions';
 import { IMPERIAL, METRIC } from 'constant';
 import styled from 'styled-components';
 
@@ -26,9 +26,10 @@ class UnitButtons extends Component {
   };
 
   handleClick = target => {
-    const { setUnit, unit } = this.props;
+    const { updateWeather, setUnit, unit } = this.props;
     if (target !== unit) {
       setUnit(target);
+      updateWeather(target);
     }
   };
 
@@ -61,5 +62,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setUnit }
+  { setUnit, updateWeather }
 )(UnitButtons);

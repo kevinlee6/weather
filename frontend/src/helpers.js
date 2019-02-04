@@ -39,23 +39,23 @@ export const validateZipAndCity = payload => {
 const convertCtoF = temp => Math.round(temp * 1.8 + 32);
 const convertFtoC = temp => Math.round((temp - 32) * (5 / 9));
 const convertTemp = (temp, unit) =>
-  unit === IMPERIAL ? convertFtoC(temp) : convertCtoF(temp);
+  unit === IMPERIAL ? convertCtoF(temp) : convertFtoC(temp);
 
 const convertMPHtoMS = wind => Math.round(wind * 0.44704);
 const convertMStoMPH = wind => Math.round(wind * 2.23694);
 const convertSpeed = (wind, unit) =>
   unit === IMPERIAL ? convertMPHtoMS(wind) : convertMStoMPH(wind);
 
-export const convertPayload = (payload, unit) => {
-  let { temp, windSpeed } = payload;
+export const convertUnitsInState = (state, unit) => {
+  let { temp, windSpeed } = state;
   const newTemp = { ...temp };
   for (const k in newTemp) {
     const v = newTemp[k];
-    newTemp[k] = convertTemp(v, unit);
+    newTemp[k] = newTemp[k] && convertTemp(v, unit);
   }
-  windSpeed = convertSpeed(windSpeed, unit);
+  windSpeed = windSpeed && convertSpeed(windSpeed, unit);
   return {
-    ...payload,
+    ...state,
     temp: { ...newTemp },
     windSpeed,
   };

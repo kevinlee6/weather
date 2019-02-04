@@ -1,5 +1,6 @@
-import { FETCH_WEATHER } from 'actions/types';
+import { FETCH_WEATHER, UPDATE_WEATHER } from 'actions/types';
 import { suffixAsync, extractData } from 'helpers';
+import { convertUnitsInState } from 'helpers';
 const [
   FETCH_WEATHER_REQUEST,
   FETCH_WEATHER_SUCCESS,
@@ -25,6 +26,11 @@ const initialState = {
 export default (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {
+    case UPDATE_WEATHER: {
+      const { unit } = payload;
+      const newState = convertUnitsInState(state, unit);
+      return newState;
+    }
     case FETCH_WEATHER_REQUEST: {
       return {
         ...state,

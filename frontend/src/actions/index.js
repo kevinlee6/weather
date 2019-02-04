@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { AUTH_USER, SET_BACKGROUND, FETCH_WEATHER, SET_UNIT } from './types';
+import {
+  AUTH_USER,
+  SET_BACKGROUND,
+  FETCH_WEATHER,
+  SET_UNIT,
+  UPDATE_WEATHER,
+} from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
 
@@ -41,4 +47,9 @@ export const setUnit = unit => ({
 export const setBackground = payload => ({
   type: SET_BACKGROUND,
   payload,
+});
+
+export const updateWeather = unit => ({
+  type: UPDATE_WEATHER,
+  payload: { unit },
 });
