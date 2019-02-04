@@ -2,16 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Layout, Spin } from 'antd';
-import styled from 'styled-components';
 import Header from './Header';
+import Content from './Content';
 import Footer from './Footer';
 import { verify } from 'actions';
-const { Content } = Layout;
-
-const SContent = styled(Content)`
-  padding: 3%;
-  min-height: 84vh !important;
-`;
 
 class App extends Component {
   async componentDidMount() {
@@ -25,7 +19,7 @@ class App extends Component {
       <Spin spinning={loading}>
         <Layout>
           <Header />
-          <SContent>{children}</SContent>
+          <Content>{children}</Content>
           <Footer>Footer</Footer>
         </Layout>
       </Spin>
@@ -34,8 +28,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { loading } = state.auth;
-  return { loading };
+  const { loading, weather } = state.auth;
+  return { loading, weather };
 };
 
 export default withRouter(

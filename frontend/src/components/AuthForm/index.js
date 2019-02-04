@@ -5,7 +5,7 @@ import { Formik, Form } from 'formik';
 import { message } from 'antd';
 import styled from 'styled-components';
 import EmailAndPasswordFields from './EmailAndPasswordFields';
-import SignInSpecific from './SignInSpecific';
+// import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
 import Buttons from './Buttons';
 import { register, signIn } from 'actions';
@@ -60,9 +60,8 @@ class AuthForm extends Component {
   };
 
   renderSpecific = (command, field) =>
-    command === SIGN_IN ? (
-      <SignInSpecific field={field} />
-    ) : (
+    command === SIGN_IN ? // <SignInSpecific field={field} />
+    null : (
       <RegisterSpecific field={field} />
     );
 

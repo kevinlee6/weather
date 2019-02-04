@@ -1,4 +1,4 @@
-import { IMPERIAL, METRIC } from './constant';
+import { IMPERIAL } from './constant';
 
 export const titleCase = word => {
   if (word || typeof word === String) {

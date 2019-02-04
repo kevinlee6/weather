@@ -10,6 +10,9 @@ const Div = styled.div`
   padding: 0 5px;
 `;
 
+// SignInSpecific will be remember/forgot passwork checkboxes
+// not yet implemented
+
 export default () => <Form.Item>Future update</Form.Item>;
 
 // export default class extends Component {

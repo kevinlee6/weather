@@ -16,11 +16,3 @@ export const UNITS = {
     WIND: 'm/s',
   },
 };
-
-export const WEATHER = {
-  SUNNY: 'sunny',
-  RAIN: 'rain',
-  CLOUDS: 'clouds',
-  THUNDERSTORM: 'thunderstorm',
-  MIST: 'mist',
-};

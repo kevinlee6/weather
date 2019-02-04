@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { Form as AntdForm, Input, Button } from 'antd';
+import { Form as AntdForm, Input, Button, message } from 'antd';
 import { ErrorDiv } from 'components/Styled';
 import QueryField from './QueryField';
 import CountryField from './CountryField';
@@ -19,9 +19,16 @@ class WeatherForm extends Component {
   handleSubmit = values => {
     const { fetchWeather, unit } = this.props;
     // Could alternatively use message error for flash message.
-    fetchWeather({ ...values, unit }).then(resolve => {
-      console.log(resolve);
-    });
+    fetchWeather({ ...values, unit })
+      .then(resolve => {
+        const { error } = resolve;
+        if (error) {
+          message.error('That location could not be found.');
+        }
+      })
+      .catch(err => {
+        message.error('Something went wrong.');
+      });
   };
 
   renderError = () => <ErrorDiv>Either zip code or city are invalid.</ErrorDiv>;
