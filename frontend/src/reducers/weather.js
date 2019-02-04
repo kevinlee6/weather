@@ -9,11 +9,15 @@ const [
 const initialState = {
   loading: false,
   weather: '',
-  city: '',
-  country: '',
-  temp: '',
-  minTemp: '',
-  maxTemp: '',
+  location: {
+    city: '',
+    country: '',
+  },
+  temp: {
+    min: '',
+    max: '',
+    cur: '',
+  },
   humidity: '',
   windSpeed: '',
 };
@@ -31,8 +35,8 @@ export default (state = initialState, action) => {
       const data = extractData(payload);
       return {
         ...state,
-        loading: false,
         ...data,
+        loading: false,
       };
     }
     case FETCH_WEATHER_FAILURE: {

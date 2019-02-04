@@ -25,12 +25,20 @@ class UnitButtons extends Component {
     return unit === target;
   };
 
+  handleClick = target => {
+    const { setUnit, unit } = this.props;
+    if (target !== unit) {
+      setUnit(target);
+    }
+  };
+
   renderButton = target => {
-    const { setUnit } = this.props;
     return this.isActive(target) ? (
-      <Button onClick={() => setUnit(target)}>{UNITS[target]}</Button>
+      <Button value={target} onClick={() => this.handleClick(target)}>
+        {UNITS[target]}
+      </Button>
     ) : (
-      <SButton type="ghost" onClick={() => setUnit(target)}>
+      <SButton type="ghost" onClick={() => this.handleClick(target)}>
         {UNITS[target]}
       </SButton>
     );

@@ -1,3 +1,5 @@
+import { IMPERIAL, METRIC } from './constant';
+
 export const titleCase = word => {
   if (word || typeof word === String) {
     const firstLetter = word[0].toUpperCase();
@@ -33,15 +35,45 @@ export const validateZipAndCity = payload => {
   return zip_code || cityRegex.test(city);
 };
 
+// convert block built with separation of logic
+const convertCtoF = temp => Math.round(temp * 1.8 + 32);
+const convertFtoC = temp => Math.round((temp - 32) * (5 / 9));
+const convertTemp = (temp, unit) =>
+  unit === IMPERIAL ? convertFtoC(temp) : convertCtoF(temp);
+
+const convertMPHtoMS = wind => Math.round(wind * 0.44704);
+const convertMStoMPH = wind => Math.round(wind * 2.23694);
+const convertSpeed = (wind, unit) =>
+  unit === IMPERIAL ? convertMPHtoMS(wind) : convertMStoMPH(wind);
+
+export const convertPayload = (payload, unit) => {
+  let { temp, windSpeed } = payload;
+  const newTemp = { ...temp };
+  for (const k in newTemp) {
+    const v = newTemp[k];
+    newTemp[k] = convertTemp(v, unit);
+  }
+  windSpeed = convertSpeed(windSpeed, unit);
+  return {
+    ...payload,
+    temp: { ...newTemp },
+    windSpeed,
+  };
+};
+
 export const extractData = data => ({
+  location: {
+    city: data.name,
+    country: data.sys.country,
+  },
   weather: data.weather[0].main,
-  city: data.name,
-  country: data.sys.country,
-  temp: data.main.temp,
-  minTemp: data.main.temp_min,
-  maxTemp: data.main.temp_max,
   humidity: data.main.humidity,
-  windSpeed: data.wind.speed,
+  windSpeed: Math.round(data.wind.speed),
+  temp: {
+    min: Math.round(data.main.temp_min),
+    max: Math.round(data.main.temp_max),
+    cur: Math.round(data.main.temp),
+  },
 });
 
 // Handled by Formik/Yup
