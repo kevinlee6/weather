@@ -1,7 +1,7 @@
 import { SET_UNIT } from '../actions/types';
-import { METRIC } from 'constant';
+import { IMPERIAL } from 'constant';
 
-const initialState = METRIC;
+const initialState = IMPERIAL;
 
 export default (state = initialState, action) => {
   const { payload } = action;

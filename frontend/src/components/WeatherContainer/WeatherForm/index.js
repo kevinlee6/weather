@@ -34,7 +34,7 @@ class WeatherForm extends Component {
   };
 
   render() {
-    const initialValues = { query: '', country: '' };
+    const initialValues = { query: 'New York', country: '' };
     return (
       <Formik
         initialValues={initialValues}

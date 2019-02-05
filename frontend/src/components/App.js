@@ -5,12 +5,13 @@ import { Layout, Spin } from 'antd';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
-import { verify } from 'actions';
+import { verify, fetchWeather } from 'actions';
 
 class App extends Component {
   async componentDidMount() {
-    const { verify } = this.props;
+    const { verify, fetchWeather, unit } = this.props;
     await verify();
+    await fetchWeather({ query: 'New York', unit });
   }
 
   render() {
@@ -28,15 +29,15 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
+  const { unit } = state;
   const { loading } = state.auth;
   const { weather } = state.weather;
-  console.log(weather);
-  return { loading, weather };
+  return { loading, weather, unit };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { verify }
+    { verify, fetchWeather }
   )(App)
 );
