@@ -24,8 +24,8 @@ RSpec.describe Location, type: :model do
 
       it 'should validate uniqueness' do
         saved1 = build(:location, city: 'New York').save
-        saved2 = build(:location, city: 'New York').save
-        expect((saved1 == true) && (saved2 == false)).to eq true
+        built
+        expect{ built.save }.to raise_error ActiveRecord::RecordNotUnique
       end
     end
 

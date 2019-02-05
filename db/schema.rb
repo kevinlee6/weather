@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_042053) do
     t.string "country", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["city"], name: "index_locations_on_city", unique: true
+    t.index ["city", "country"], name: "index_locations_on_city_and_country", unique: true
   end
 
   create_table "user_locations", force: :cascade do |t|

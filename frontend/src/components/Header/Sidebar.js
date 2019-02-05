@@ -32,16 +32,19 @@ const ListItem = ({ children, link = '/', handleClick }) => (
   </List.Item>
 );
 
+const Authentication = ({ authenticated, signOut }) =>
+  authenticated ? (
+    <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
+  ) : (
+    <Fragment>
+      <ListItem link="/signin">Sign in</ListItem>
+      <ListItem link="/register">Register</ListItem>
+    </Fragment>
+  );
+
 const DrawerList = ({ authenticated, closeDrawer, signOut }) => (
   <List onClick={closeDrawer}>
-    {authenticated ? (
-      <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
-    ) : (
-      <Fragment>
-        <ListItem link="/signin">Sign in</ListItem>
-        <ListItem link="/register">Register</ListItem>
-      </Fragment>
-    )}
+    <div>dummy</div>
   </List>
 );
 
@@ -65,7 +68,7 @@ class Sidebar extends Component {
           onClick={this.showDrawer}
         />
         <Drawer
-          title={<h2>Hello</h2>}
+          title={<Authentication {...this.props} />}
           placement="left"
           onClose={this.onClose}
           visible={this.state.visible}
