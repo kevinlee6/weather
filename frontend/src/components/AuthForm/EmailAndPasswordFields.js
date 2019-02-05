@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { PrefixIcon } from './Styled';
-import { ErrorDiv } from 'components/Styled';
+import { ErrorSpan } from 'components/Styled';
 import { Field, ErrorMessage } from 'formik';
 import { Form, Input } from 'antd';
 
@@ -18,7 +18,7 @@ export default () => (
           />
         )}
       />
-      <ErrorMessage component={ErrorDiv} name="email" />
+      <ErrorMessage component={ErrorSpan} name="email" />
     </Form.Item>
     <Form.Item>
       <Field
@@ -31,7 +31,7 @@ export default () => (
           />
         )}
       />
-      <ErrorMessage component={ErrorDiv} name="password" />
+      <ErrorMessage component={ErrorSpan} name="password" />
     </Form.Item>
   </Fragment>
 );

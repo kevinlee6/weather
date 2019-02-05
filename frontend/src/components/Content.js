@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 
@@ -18,13 +17,6 @@ const SContent = styled(Content)`
       : null}
 `;
 
-const ConnectedContent = ({ weather, children }) => (
+export default ({ weather, children }) => (
   <SContent background={formatWeather(weather)}>{children}</SContent>
 );
-
-const mapStateToProps = state => {
-  const { weather } = state.weather;
-  return { weather };
-};
-
-export default connect(mapStateToProps)(ConnectedContent);

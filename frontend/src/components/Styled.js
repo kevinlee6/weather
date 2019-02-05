@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { Input } from 'antd';
 
-export const ErrorDiv = styled.div`
+export const ErrorSpan = styled.span`
   color: red;
+  padding: 4px 8px;
+  background: rgba(222, 222, 222, 0.8);
+  border-radius: 10px;
 `;
 
 export const SInput = styled(Input)`

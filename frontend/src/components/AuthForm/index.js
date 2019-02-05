@@ -60,8 +60,7 @@ class AuthForm extends Component {
   };
 
   renderSpecific = (command, field) =>
-    command === SIGN_IN ? // <SignInSpecific field={field} />
-    null : (
+    command === SIGN_IN ? null : ( // <SignInSpecific field={field} />
       <RegisterSpecific field={field} />
     );
 

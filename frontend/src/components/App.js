@@ -14,12 +14,12 @@ class App extends Component {
   }
 
   render() {
-    const { children, loading } = this.props;
+    const { children, loading, weather } = this.props;
     return (
       <Spin spinning={loading}>
         <Layout>
           <Header />
-          <Content>{children}</Content>
+          <Content weather={weather}>{children}</Content>
           <Footer>Footer</Footer>
         </Layout>
       </Spin>
@@ -28,7 +28,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { loading, weather } = state.auth;
+  const { loading } = state.auth;
+  const { weather } = state.weather;
+  console.log(weather);
   return { loading, weather };
 };
 

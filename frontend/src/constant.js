@@ -1,5 +1,5 @@
-export const SIGN_IN = 'SIGN_IN';
-export const REGISTER = 'REGISTER';
+export const SIGN_IN = 'signin';
+export const REGISTER = 'register';
 export const EMAIL_REGEX = /.+@.+\..+/;
 export const QUERY = 'query';
 export const APPJSON = 'application/json';

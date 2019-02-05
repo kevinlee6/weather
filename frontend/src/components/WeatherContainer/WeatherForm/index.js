@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Form as AntdForm, Input, Button, message } from 'antd';
-import { ErrorDiv } from 'components/Styled';
+import { ErrorSpan } from 'components/Styled';
 import QueryField from './QueryField';
 import CountryField from './CountryField';
 import schema from './schema';
 import { fetchWeather } from 'actions';
 import { QUERY } from 'constant';
+import styled from 'styled-components';
 
 const FormItem = AntdForm.Item;
 
-class WeatherForm extends Component {
-  state = {
-    hasError: false,
-  };
+const ErrorDiv = styled.div`
+  height: 1px;
+`;
 
+class WeatherForm extends Component {
   handleSubmit = values => {
     const { fetchWeather, unit } = this.props;
     // Could alternatively use message error for flash message.
@@ -31,13 +32,8 @@ class WeatherForm extends Component {
       });
   };
 
-  renderError = () => <ErrorDiv>Either zip code or city are invalid.</ErrorDiv>;
-
-  clearError = () => {};
-
   render() {
     const initialValues = { query: '', country: '' };
-    const { hasError } = this.state;
     return (
       <Formik
         initialValues={initialValues}
@@ -47,10 +43,7 @@ class WeatherForm extends Component {
         validationSchema={schema}
         render={() => (
           <React.Fragment>
-            <Form
-              onChange={this.clearError}
-              className="ant-form ant-form-inline"
-            >
+            <Form className="ant-form ant-form-inline">
               <FormItem>
                 <Input.Group compact>
                   <QueryField />
@@ -66,9 +59,9 @@ class WeatherForm extends Component {
                 />
               </FormItem>
             </Form>
-            <ErrorMessage component={ErrorDiv} name={QUERY} />
-
-            {hasError ? this.renderError() : null}
+            <ErrorDiv>
+              <ErrorMessage component={ErrorSpan} name={QUERY} />
+            </ErrorDiv>
           </React.Fragment>
         )}
       />
