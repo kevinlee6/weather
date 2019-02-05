@@ -35,6 +35,5 @@ RSpec.describe Location, type: :model do
         expect(saved).to eq false
       end
     end
-
   end
 end
