@@ -15,12 +15,19 @@ RSpec.describe UserLocation, type: :model do
         expect(saved).to eq true
       end
 
-      it 'does not allow duplicate locations for same user' do
+      it 'does not allow duplicate locations for same user on db level' do
         user
         location
         saved = built.save
-        built2 = build :user_location
-        expect{ built2.save }.to raise_error ActiveRecord::RecordNotUnique
+        expect{ created }.to raise_error ActiveRecord::RecordInvalid
+      end
+
+      it 'does not allow duplicate locations for same user on model level' do
+        user
+        location
+        saved = built.save
+        saved2 = build(:user_location).save
+        expect(saved2).to eq false
       end
     end
 

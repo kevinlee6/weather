@@ -6,6 +6,7 @@ class UserLocation < ApplicationRecord
 
   validates :priority, presence: true,
                        numericality: { only_integer: true, greater_than: 0 }
+  validates_uniqueness_of :location_id, scope: :user_id
 
   private
   def create_and_increment_priority
