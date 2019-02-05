@@ -19,10 +19,9 @@ RSpec.describe User, type: :model do
       end
 
       it 'should not allow duplicates, case insensitive' do
-        built.save
-        user = build(:user, password: 'PasSworD')
-        saved = user.save
-        expect(saved).to eq false
+        saved1 = build(:user, email: 'test@test.com').save
+        saved2 = build(:user, email: 'test@test.com').save
+        expect(saved1 == saved2).to eq false
       end
 
       it 'should now allow more than 254 chars' do
