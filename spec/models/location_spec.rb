@@ -9,10 +9,18 @@ RSpec.describe Location, type: :model do
         expect(saved).to eq true
       end
 
-      it 'should let two different ones save' do
-        saved1 = build(:location, city: 'New York').save
+      it 'should let two different ones save w/ diff cities' do
+        saved1 = built.save
         saved2 = build(:location, city: 'New Jersey').save
-        expect((saved1 == true) && (saved2 == true)).to eq true
+        is_all_true = [saved1, saved2].all? { |x| x == true }
+        expect(is_all_true).to eq true
+      end
+
+      it 'should let two different ones save w/ diff countries' do
+        saved1 = built.save
+        saved2 = build(:location, country: 'CA').save
+        is_all_true = [saved1, saved2].all? { |x| x == true }
+        expect(is_all_true).to eq true
       end
     end
 
@@ -22,10 +30,15 @@ RSpec.describe Location, type: :model do
         expect(saved).to eq false
       end
 
-      it 'should validate uniqueness' do
+      it 'should validate uniqueness on model level' do
         saved1 = build(:location, city: 'New York').save
-        built
-        expect{ built.save }.to raise_error ActiveRecord::RecordNotUnique
+        saved2 = built.save
+        expect(saved2).to eq false
+      end
+
+      it 'should validate uniqueness on db level' do
+        saved1 = build(:location, city: 'New York').save
+        expect{ create(:location) }.to raise_error ActiveRecord::RecordInvalid
       end
     end
 
