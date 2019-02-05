@@ -12,24 +12,6 @@ import { register, signIn } from 'actions';
 import { REGISTER, SIGN_IN } from 'constant';
 import { SignInSchema, RegisterSchema } from './schema';
 
-const SForm = styled(Form)`
-  width: 40%;
-  margin: auto;
-  padding: 30px;
-  border-radius: 30px;
-  background-color: rgba(222, 222, 222, 0.8);
-
-  @media (max-width: 992px) {
-    width: 70%;
-  }
-
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-`;
-
-const Title = ({ title }) => <h2>{title}</h2>;
-
 class AuthForm extends Component {
   handleSubmit = values => {
     const { signIn, register, command, history } = this.props;
@@ -119,3 +101,21 @@ export default withRouter(
     { register, signIn }
   )(AuthForm)
 );
+
+const SForm = styled(Form)`
+  width: 40%;
+  margin: auto;
+  padding: 30px;
+  border-radius: 30px;
+  background-color: rgba(222, 222, 222, 0.8);
+
+  @media (max-width: 992px) {
+    width: 70%;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+`;
+
+const Title = ({ title }) => <h2>{title}</h2>;

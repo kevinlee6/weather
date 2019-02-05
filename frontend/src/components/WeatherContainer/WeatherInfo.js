@@ -2,11 +2,65 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { UNITS } from 'constant';
 import { titleCase } from 'helpers';
-import { Empty } from 'antd';
+import { Empty, Button, Icon } from 'antd';
 import moment from 'moment';
 import styled from 'styled-components';
 
+class WeatherInfo extends Component {
+  render() {
+    const { weather, unit } = this.props;
+    const status = titleCase(weather.weather);
+    const { temp, location, humidity, windSpeed, datetime } = weather;
+    const { min, max, cur } = temp;
+    const { city, country } = location;
+    const units = UNITS[unit];
+    const windUnit = units[WIND];
+    const tempUnit = units[TEMP];
+    return (
+      <Div>
+        {datetime ? (
+          <Fragment>
+            <LeftColumn>
+              <Location>{`${city}, ${country}`}</Location>
+              <p>Humidity: {humidity}%</p>
+              <p>Wind: {`${windSpeed}${windUnit}`}</p>
+              <LastUpdated>
+                Last updated:
+                <br />
+                {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
+              </LastUpdated>
+            </LeftColumn>
+            <RightColumn>
+              <Status>{status}</Status>
+              <Temperature>
+                <CurrentTemp>{`${cur}${tempUnit}`}</CurrentTemp>
+                <div>
+                  <p>Low: {`${min}${tempUnit}`}</p>
+                  <p>High: {`${max}${tempUnit}`}</p>
+                </div>
+              </Temperature>
+            </RightColumn>
+            <Favorite shape="circle-outline" type="ghost">
+              <Star type="star" theme="twoTone" />
+            </Favorite>
+          </Fragment>
+        ) : (
+          <SEmpty description="Enter a location to get started" />
+        )}
+      </Div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  const { weather, unit } = state;
+  return { weather, unit };
+};
+
+export default connect(mapStateToProps)(WeatherInfo);
+
 const Div = styled.div`
+  position: relative;
   background-color: rgba(222, 222, 222, 0.7);
   border-radius: 20px;
   width: 50%;
@@ -55,55 +109,15 @@ const SEmpty = styled(Empty)`
   margin: auto !important;
 `;
 
+const Star = styled(Icon)`
+  color: yellow;
+`;
+
+const Favorite = styled(Button)`
+  position: absolute !important;
+  top: 8px;
+  right: 8px;
+`;
+
 const WIND = 'WIND';
 const TEMP = 'TEMP';
-
-class WeatherInfo extends Component {
-  render() {
-    const { weather, unit } = this.props;
-    const status = titleCase(weather.weather);
-    const { temp, location, humidity, windSpeed, datetime } = weather;
-    const { min, max, cur } = temp;
-    const { city, country } = location;
-    const units = UNITS[unit];
-    const windUnit = units[WIND];
-    const tempUnit = units[TEMP];
-    return (
-      <Div>
-        {datetime ? (
-          <Fragment>
-            <LeftColumn>
-              <Location>{`${city}, ${country}`}</Location>
-              <p>Humidity: {humidity}%</p>
-              <p>Wind: {`${windSpeed}${windUnit}`}</p>
-              <LastUpdated>
-                Last updated:
-                <br />
-                {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
-              </LastUpdated>
-            </LeftColumn>
-            <RightColumn>
-              <Status>{status}</Status>
-              <Temperature>
-                <CurrentTemp>{`${cur}${tempUnit}`}</CurrentTemp>
-                <div>
-                  <p>Low: {`${min}${tempUnit}`}</p>
-                  <p>High: {`${max}${tempUnit}`}</p>
-                </div>
-              </Temperature>
-            </RightColumn>
-          </Fragment>
-        ) : (
-          <SEmpty description="Enter a location to get started" />
-        )}
-      </Div>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  const { weather, unit } = state;
-  return { weather, unit };
-};
-
-export default connect(mapStateToProps)(WeatherInfo);

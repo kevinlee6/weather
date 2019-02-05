@@ -6,52 +6,6 @@ import { signOut } from 'actions';
 import { Drawer, Icon as AntdIcon, List } from 'antd';
 import styled from 'styled-components';
 
-const Icon = styled(AntdIcon)`
-  color: white;
-  font-size: 1.6em;
-  padding: 0 10px 0 20px;
-  :hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  width: 80%;
-  font-size: 1.6em;
-`;
-
-const handleSignOut = signOut => {
-  signOut();
-};
-
-const ListItem = ({ children, link = '/', handleClick }) => (
-  <List.Item>
-    <StyledLink to={link} onClick={handleClick}>
-      {children}
-    </StyledLink>
-  </List.Item>
-);
-
-const Authentication = ({ authenticated, signOut, closeDrawer }) => (
-  <div onClick={closeDrawer}>
-    {authenticated ? (
-      <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
-    ) : (
-      <Fragment>
-        <ListItem link="/signin">Sign in</ListItem>
-        <ListItem link="/register">Register</ListItem>
-      </Fragment>
-    )}
-  </div>
-);
-
-const DrawerList = ({ closeDrawer }) => (
-  <List onClick={closeDrawer}>
-    <div>dummy</div>
-  </List>
-);
-
 class Sidebar extends Component {
   state = { visible: false };
 
@@ -93,3 +47,45 @@ export default connect(
   mapStateToProps,
   { signOut }
 )(Sidebar);
+
+const Icon = styled(AntdIcon)`
+  color: white;
+  font-size: 1.6em;
+  padding: 0 10px 0 20px;
+  :hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  width: 80%;
+  font-size: 1.6em;
+`;
+
+const ListItem = ({ children, link = '/', handleClick }) => (
+  <List.Item>
+    <StyledLink to={link} onClick={handleClick}>
+      {children}
+    </StyledLink>
+  </List.Item>
+);
+
+const Authentication = ({ authenticated, signOut, closeDrawer }) => (
+  <div onClick={closeDrawer}>
+    {authenticated ? (
+      <ListItem handleClick={signOut}>Sign out</ListItem>
+    ) : (
+      <Fragment>
+        <ListItem link="/signin">Sign in</ListItem>
+        <ListItem link="/register">Register</ListItem>
+      </Fragment>
+    )}
+  </div>
+);
+
+const DrawerList = ({ closeDrawer }) => (
+  <List onClick={closeDrawer}>
+    <div>dummy</div>
+  </List>
+);
