@@ -9,6 +9,7 @@ const [
 
 const initialState = {
   loading: false,
+  datetime: '',
   weather: '',
   location: {
     city: '',

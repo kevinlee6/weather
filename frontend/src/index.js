@@ -6,6 +6,7 @@ import App from './components/App';
 import Home from './components/Home';
 import AuthForm from './components/AuthForm';
 import { SIGN_IN, REGISTER } from 'constant';
+import 'moment-timezone';
 import './index.css';
 
 // change global config

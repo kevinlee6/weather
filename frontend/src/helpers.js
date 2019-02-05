@@ -53,6 +53,7 @@ export const convertUnitsInState = (state, unit) => {
 };
 
 export const extractData = data => ({
+  datetime: data.dt,
   location: {
     city: data.name,
     country: data.sys.country,

@@ -16,7 +16,7 @@ const Register = () => <Link to={`/${REGISTER}`}>Create an account</Link>;
 
 const SignIn = () => <Link to={`/${SIGN_IN}`}>sign in</Link>;
 
-const WELCOME_MESSAGE = () => (
+const WelcomeMessage = () => (
   <span>
     Get the latest weather! {<Register />} or {<SignIn />} to have access to
     saved locations.
@@ -24,7 +24,7 @@ const WELCOME_MESSAGE = () => (
 );
 
 const NotLoggedInMessage = () => (
-  <SAlert message={<WELCOME_MESSAGE />} type="info" closable={true} />
+  <SAlert message={<WelcomeMessage />} type="info" closable={true} />
 );
 
 class Home extends Component {

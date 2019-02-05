@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UNITS } from 'constant';
 import { titleCase } from 'helpers';
+import moment from 'moment';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -52,7 +53,7 @@ class WeatherInfo extends Component {
   render() {
     const { weather, unit } = this.props;
     const status = titleCase(weather.weather);
-    const { temp, location, humidity, windSpeed } = weather;
+    const { temp, location, humidity, windSpeed, datetime } = weather;
     const { min, max, cur } = temp;
     const { city, country } = location;
     const units = UNITS[unit];
@@ -64,6 +65,10 @@ class WeatherInfo extends Component {
           <Location>{`${city}, ${country}`}</Location>
           <p>Humidity: {humidity}%</p>
           <p>Windspeed: {`${windSpeed}${windUnit}`}</p>
+          <p>
+            Last updated:{' '}
+            {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
+          </p>
         </LeftColumn>
         <RightColumn>
           <Status>{status}</Status>

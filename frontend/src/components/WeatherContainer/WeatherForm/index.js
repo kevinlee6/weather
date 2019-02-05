@@ -22,6 +22,7 @@ class WeatherForm extends Component {
     // Could alternatively use message error for flash message.
     fetchWeather({ ...values, unit })
       .then(resolve => {
+        console.log(resolve);
         const { error } = resolve;
         if (error) {
           message.error('That location could not be found.');
