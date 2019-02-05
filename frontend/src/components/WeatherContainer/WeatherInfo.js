@@ -68,7 +68,7 @@ class WeatherInfo extends Component {
         <LeftColumn>
           <Location>{`${city}, ${country}`}</Location>
           <p>Humidity: {humidity}%</p>
-          <p>Windspeed: {`${windSpeed}${windUnit}`}</p>
+          <p>Wind: {`${windSpeed}${windUnit}`}</p>
           <LastUpdated>
             Last updated:
             <br />

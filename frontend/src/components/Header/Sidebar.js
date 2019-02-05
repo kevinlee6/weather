@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const Icon = styled(AntdIcon)`
   color: white;
   font-size: 1.6em;
-  margin-right: 20px;
+  padding: 0 10px 0 20px;
   :hover {
     cursor: pointer;
     opacity: 0.8;

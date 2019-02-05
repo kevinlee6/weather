@@ -7,16 +7,19 @@ import AuthButtons from './AuthButtons';
 import styled from 'styled-components';
 
 const { Header } = Layout;
-const SHeader = styled(Header)`
-  display: flex;
+const HeaderContainer = styled(Header)`
   color: white;
+  padding: 0 !important;
+`;
+
+const InnerHeader = styled.div`
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px !important;
 `;
 
 const Div = styled.div`
-  flex-grow: 6;
+  width: 50vw;
   display: flex;
   align-items: center;
 `;
@@ -27,22 +30,23 @@ const DivLeft = styled(Div)`
 
 const DivRight = styled(Div)`
   justify-content: flex-end;
-  padding-right: 20px;
 `;
 
 export default class extends Component {
   render() {
     return (
-      <SHeader>
-        <DivLeft>
-          <Sidebar />
-          <Logo />
-        </DivLeft>
-        <DivRight>
-          <UnitButtons />
-          <AuthButtons />
-        </DivRight>
-      </SHeader>
+      <HeaderContainer>
+        <InnerHeader>
+          <DivLeft>
+            <Sidebar />
+            <Logo />
+          </DivLeft>
+          <DivRight>
+            <UnitButtons />
+            <AuthButtons />
+          </DivRight>
+        </InnerHeader>
+      </HeaderContainer>
     );
   }
 }

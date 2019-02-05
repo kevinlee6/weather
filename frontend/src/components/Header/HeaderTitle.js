@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Img = styled.img`
   max-width: 66px;
-  padding-right: 10px;
+  padding: 0 10px;
 `;
 
 const H1 = styled.h1`

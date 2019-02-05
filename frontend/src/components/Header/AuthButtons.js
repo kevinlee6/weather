@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { signOut } from 'actions';
+import styled from 'styled-components';
 
 const Authenticated = ({ handleSignOut }) => (
   <Button onClick={handleSignOut}>Sign out</Button>
@@ -19,6 +20,13 @@ const NotAuthenticated = () => (
   </Button.Group>
 );
 
+const AuthButtonContainer = styled.div`
+  margin: 0 15px;
+  @media (max-width: 576px) {
+    display: none;
+  }
+`;
+
 class AuthButtons extends Component {
   handleSignOut = () => {
     const { signOut } = this.props;
@@ -27,12 +35,18 @@ class AuthButtons extends Component {
       .catch(err => console.log(err));
   };
 
-  render() {
+  renderAuthenticated = () => {
     const { authenticated } = this.props;
     return authenticated ? (
       <Authenticated handleSignOut={this.handleSignOut} />
     ) : (
       <NotAuthenticated />
+    );
+  };
+
+  render() {
+    return (
+      <AuthButtonContainer>{this.renderAuthenticated()}</AuthButtonContainer>
     );
   }
 }

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const ButtonGroup = styled(Button.Group)`
   white-space: nowrap !important;
-  margin: 0 40px;
+  margin-right: 10px;
 `;
 
 const SButton = styled(Button)`
