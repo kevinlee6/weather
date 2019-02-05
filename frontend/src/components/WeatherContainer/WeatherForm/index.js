@@ -16,6 +16,11 @@ const ErrorDiv = styled.div`
   height: 1px;
 `;
 
+const SForm = styled(Form)`
+  display: flex;
+  justify-content: center;
+`;
+
 class WeatherForm extends Component {
   handleSubmit = values => {
     const { fetchWeather, unit } = this.props;
@@ -45,7 +50,7 @@ class WeatherForm extends Component {
         validationSchema={schema}
         render={() => (
           <React.Fragment>
-            <Form className="ant-form ant-form-inline">
+            <SForm className="ant-form ant-form-inline">
               <FormItem>
                 <Input.Group compact>
                   <QueryField />
@@ -61,7 +66,7 @@ class WeatherForm extends Component {
                   icon="search"
                 />
               </FormItem>
-            </Form>
+            </SForm>
             <ErrorDiv>
               <ErrorMessage component={ErrorSpan} name={QUERY} />
             </ErrorDiv>
