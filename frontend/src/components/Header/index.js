@@ -10,6 +10,8 @@ const { Header } = Layout;
 const HeaderContainer = styled(Header)`
   color: white;
   padding: 0 !important;
+  position: fixed;
+  z-index: 1;
 `;
 
 const InnerHeader = styled.div`
