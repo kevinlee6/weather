@@ -5,7 +5,11 @@ class CreateUserLocations < ActiveRecord::Migration[5.2]
       t.belongs_to :user, index: true
       t.belongs_to :location, index: true
       t.integer :priority, null: false
+
       t.timestamps
     end
+
+    add_index :user_locations, [:user_id, :location_id], unique: true
+
   end
 end

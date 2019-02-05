@@ -14,11 +14,18 @@ RSpec.describe UserLocation, type: :model do
         saved = built.save
         expect(saved).to eq true
       end
+
+      it 'does not allow duplicate locations for same user' do
+        user
+        location
+        saved = built.save
+        built2 = build :user_location
+        expect{ built2.save }.to raise_error ActiveRecord::RecordNotUnique
+      end
     end
 
     context 'user' do
       it 'expects error when no user' do
-        build(:user)
         location
         expect{ built.save }.to raise_error NoMethodError
       end
@@ -26,7 +33,6 @@ RSpec.describe UserLocation, type: :model do
 
     context 'location' do
       it 'expects error when no user' do
-        build(:location)
         user
         expect{ built.save }.to raise_error NoMethodError
       end
@@ -43,7 +49,8 @@ RSpec.describe UserLocation, type: :model do
         user
         location
         created1 = created
-        created2 = create(:user_location)
+        location2 = create :location, city: 'New Jersey'
+        created2 = create(:user_location, location_id: location2.id)
         expect(created2.priority).to eq 2
       end
 
