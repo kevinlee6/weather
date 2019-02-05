@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { UNITS } from 'constant';
 import { titleCase } from 'helpers';
+import { Empty } from 'antd';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -50,6 +51,10 @@ const LastUpdated = styled.p`
   font-size: 0.8em;
 `;
 
+const SEmpty = styled(Empty)`
+  margin: auto !important;
+`;
+
 const WIND = 'WIND';
 const TEMP = 'TEMP';
 
@@ -65,26 +70,32 @@ class WeatherInfo extends Component {
     const tempUnit = units[TEMP];
     return (
       <Div>
-        <LeftColumn>
-          <Location>{`${city}, ${country}`}</Location>
-          <p>Humidity: {humidity}%</p>
-          <p>Wind: {`${windSpeed}${windUnit}`}</p>
-          <LastUpdated>
-            Last updated:
-            <br />
-            {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
-          </LastUpdated>
-        </LeftColumn>
-        <RightColumn>
-          <Status>{status}</Status>
-          <Temperature>
-            <CurrentTemp>{`${cur}${tempUnit}`}</CurrentTemp>
-            <div>
-              <p>Low: {`${min}${tempUnit}`}</p>
-              <p>High: {`${max}${tempUnit}`}</p>
-            </div>
-          </Temperature>
-        </RightColumn>
+        {datetime ? (
+          <Fragment>
+            <LeftColumn>
+              <Location>{`${city}, ${country}`}</Location>
+              <p>Humidity: {humidity}%</p>
+              <p>Wind: {`${windSpeed}${windUnit}`}</p>
+              <LastUpdated>
+                Last updated:
+                <br />
+                {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
+              </LastUpdated>
+            </LeftColumn>
+            <RightColumn>
+              <Status>{status}</Status>
+              <Temperature>
+                <CurrentTemp>{`${cur}${tempUnit}`}</CurrentTemp>
+                <div>
+                  <p>Low: {`${min}${tempUnit}`}</p>
+                  <p>High: {`${max}${tempUnit}`}</p>
+                </div>
+              </Temperature>
+            </RightColumn>
+          </Fragment>
+        ) : (
+          <SEmpty description="Enter a location to get started" />
+        )}
       </Div>
     );
   }

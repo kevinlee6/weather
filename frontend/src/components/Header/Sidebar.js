@@ -17,6 +17,7 @@ const Icon = styled(AntdIcon)`
 `;
 
 const StyledLink = styled(Link)`
+  width: 80%;
   font-size: 1.6em;
 `;
 
@@ -32,17 +33,20 @@ const ListItem = ({ children, link = '/', handleClick }) => (
   </List.Item>
 );
 
-const Authentication = ({ authenticated, signOut }) =>
-  authenticated ? (
-    <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
-  ) : (
-    <Fragment>
-      <ListItem link="/signin">Sign in</ListItem>
-      <ListItem link="/register">Register</ListItem>
-    </Fragment>
-  );
+const Authentication = ({ authenticated, signOut, closeDrawer }) => (
+  <div onClick={closeDrawer}>
+    {authenticated ? (
+      <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
+    ) : (
+      <Fragment>
+        <ListItem link="/signin">Sign in</ListItem>
+        <ListItem link="/register">Register</ListItem>
+      </Fragment>
+    )}
+  </div>
+);
 
-const DrawerList = ({ authenticated, closeDrawer, signOut }) => (
+const DrawerList = ({ closeDrawer }) => (
   <List onClick={closeDrawer}>
     <div>dummy</div>
   </List>
@@ -68,7 +72,7 @@ class Sidebar extends Component {
           onClick={this.showDrawer}
         />
         <Drawer
-          title={<Authentication {...this.props} />}
+          title={<Authentication {...this.props} closeDrawer={this.onClose} />}
           placement="left"
           onClose={this.onClose}
           visible={this.state.visible}

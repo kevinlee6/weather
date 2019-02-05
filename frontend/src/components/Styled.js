@@ -8,6 +8,10 @@ export const ErrorSpan = styled.span`
   border-radius: 10px;
 `;
 
+export const ErrorDiv = styled.div`
+  height: 1px;
+`;
+
 export const SInput = styled(Input)`
   width: ${props => props.width}% !important;
 `;

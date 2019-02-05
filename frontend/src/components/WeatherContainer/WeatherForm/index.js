@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Form as AntdForm, Input, Button, message } from 'antd';
-import { ErrorSpan } from 'components/Styled';
+import { ErrorSpan, ErrorDiv } from 'components/Styled';
 import QueryField from './QueryField';
 import CountryField from './CountryField';
 import schema from './schema';
@@ -11,10 +11,6 @@ import { QUERY } from 'constant';
 import styled from 'styled-components';
 
 const FormItem = AntdForm.Item;
-
-const ErrorDiv = styled.div`
-  height: 1px;
-`;
 
 const SForm = styled(Form)`
   display: flex;

@@ -13,9 +13,22 @@ import { REGISTER, SIGN_IN } from 'constant';
 import { SignInSchema, RegisterSchema } from './schema';
 
 const SForm = styled(Form)`
-  width: 70%;
+  width: 40%;
   margin: auto;
+  padding: 30px;
+  border-radius: 30px;
+  background-color: rgba(222, 222, 222, 0.8);
+
+  @media (max-width: 992px) {
+    width: 70%;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
+
+const Title = ({ title }) => <h2>{title}</h2>;
 
 class AuthForm extends Component {
   handleSubmit = values => {
@@ -59,14 +72,17 @@ class AuthForm extends Component {
     }
   };
 
-  renderSpecific = (command, field) =>
-    command === SIGN_IN ? null : ( // <SignInSpecific field={field} />
+  renderSpecific = field =>
+    this.props.command === SIGN_IN ? null : ( // <SignInSpecific field={field} />
       <RegisterSpecific field={field} />
     );
 
-  genInitialValues = command => {
+  renderTitleMessage = () =>
+    this.props.command === SIGN_IN ? 'Welcome back!' : "Let's get started";
+
+  genInitialValues = () => {
     const initialValues = { email: '', password: '' };
-    return command === SIGN_IN
+    return this.props.command === SIGN_IN
       ? initialValues
       : { ...initialValues, password_confirmation: '' };
   };
@@ -76,15 +92,19 @@ class AuthForm extends Component {
     const schema = command === SIGN_IN ? SignInSchema : RegisterSchema;
     return (
       <Formik
-        initialValues={this.genInitialValues(command)}
+        initialValues={this.genInitialValues()}
         onSubmit={values => {
           this.handleSubmit(values);
         }}
         validationSchema={schema}
         render={({ field }) => (
           <SForm>
+            <Title title={this.renderTitleMessage()} />
+            <br />
             <EmailAndPasswordFields field={field} />
-            {this.renderSpecific(command, field)}
+            <br />
+            {this.renderSpecific(field)}
+            <br />
             <Buttons command={command} />
           </SForm>
         )}

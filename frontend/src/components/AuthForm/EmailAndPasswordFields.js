@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import { PrefixIcon } from './Styled';
-import { ErrorSpan } from 'components/Styled';
 import { Field, ErrorMessage } from 'formik';
-import { Form, Input } from 'antd';
+import { Form, Input, Tooltip } from 'antd';
 
 export default () => (
   <Fragment>
@@ -11,27 +10,42 @@ export default () => (
         type="email"
         name="email"
         render={({ field }) => (
-          <Input
-            {...field}
-            prefix={<PrefixIcon type="user" />}
-            placeholder="Email"
-          />
+          <Fragment>
+            <ErrorMessage
+              render={msg => (
+                <Tooltip title={msg} visible={!!msg} placement="topLeft" />
+              )}
+              name="email"
+            />
+            <Input
+              {...field}
+              prefix={<PrefixIcon type="user" />}
+              placeholder="Email"
+            />
+          </Fragment>
         )}
       />
-      <ErrorMessage component={ErrorSpan} name="email" />
     </Form.Item>
+    <br />
     <Form.Item>
       <Field
         name="password"
         render={({ field }) => (
-          <Input.Password
-            {...field}
-            prefix={<PrefixIcon type="lock" />}
-            placeholder="Password"
-          />
+          <Fragment>
+            <ErrorMessage
+              render={msg => (
+                <Tooltip title={msg} visible={!!msg} placement="topLeft" />
+              )}
+              name="password"
+            />
+            <Input.Password
+              {...field}
+              prefix={<PrefixIcon type="lock" />}
+              placeholder="Password"
+            />
+          </Fragment>
         )}
       />
-      <ErrorMessage component={ErrorSpan} name="password" />
     </Form.Item>
   </Fragment>
 );
