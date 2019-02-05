@@ -9,7 +9,7 @@ const formatWeather = str => (str ? formatIntoCSS(str) : '');
 
 const SContent = styled(Content)`
   padding: 3%;
-  min-height: 84vh !important;
+  min-height: 87vh !important;
   ${({ background }) =>
     background
       ? `background: ${background} !important; 

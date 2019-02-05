@@ -46,6 +46,10 @@ const Status = styled.p`
   font-size: 1.4em;
 `;
 
+const LastUpdated = styled.p`
+  font-size: 0.8em;
+`;
+
 const WIND = 'WIND';
 const TEMP = 'TEMP';
 
@@ -65,10 +69,11 @@ class WeatherInfo extends Component {
           <Location>{`${city}, ${country}`}</Location>
           <p>Humidity: {humidity}%</p>
           <p>Windspeed: {`${windSpeed}${windUnit}`}</p>
-          <p>
-            Last updated:{' '}
+          <LastUpdated>
+            Last updated:
+            <br />
             {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
-          </p>
+          </LastUpdated>
         </LeftColumn>
         <RightColumn>
           <Status>{status}</Status>

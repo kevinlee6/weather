@@ -35,6 +35,7 @@ class WeatherForm extends Component {
 
   render() {
     const initialValues = { query: 'New York', country: '' };
+    const { loading } = this.props;
     return (
       <Formik
         initialValues={initialValues}
@@ -53,6 +54,7 @@ class WeatherForm extends Component {
               </FormItem>
               <FormItem>
                 <Button
+                  loading={loading}
                   type="primary"
                   htmlType="submit"
                   shape="circle"
@@ -71,8 +73,9 @@ class WeatherForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const { unit } = state;
-  return { unit };
+  const { unit, weather } = state;
+  const { loading } = weather;
+  return { unit, loading };
 };
 
 export default connect(
