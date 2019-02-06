@@ -204,10 +204,10 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: index_locations_on_city_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_locations_on_city_id_and_city; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_locations_on_city_id ON public.locations USING btree (city_id);
+CREATE UNIQUE INDEX index_locations_on_city_id_and_city ON public.locations USING btree (city_id, city);
 
 
 --
@@ -250,6 +250,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190205042053'),
 ('20190206001213'),
 ('20190206060620'),
-('20190206061818');
+('20190206061818'),
+('20190206213829');
 
 
