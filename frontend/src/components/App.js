@@ -5,17 +5,16 @@ import { Layout, Spin } from 'antd';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
-import { verify, fetchWeather, initUnit } from 'actions';
+import { verify, fetchWeather, initUnit, initFavorite } from 'actions';
 
 class App extends Component {
   async componentDidMount() {
-    const { verify, fetchWeather, initUnit } = this.props;
+    const { verify, fetchWeather, initUnit, initFavorite } = this.props;
     const initValues = await verify();
     const unit = initValues && initValues.unit;
     unit && initUnit(unit);
-    const userLocations = initValues && initValues.user_locations;
-    console.log(userLocations);
-
+    const favorite = initValues && initValues.user_locations;
+    favorite && initFavorite(favorite);
     await fetchWeather({ query: 'New York', unit: unit || this.props.unit });
   }
 
@@ -43,6 +42,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { verify, fetchWeather, initUnit }
+    { verify, fetchWeather, initUnit, initFavorite }
   )(App)
 );

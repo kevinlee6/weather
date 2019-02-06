@@ -7,6 +7,7 @@ import {
   UPDATE_WEATHER,
   TOGGLE_FAVORITE,
   INIT_UNIT,
+  INIT_FAVORITE,
 } from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
@@ -41,6 +42,11 @@ export const signOut = () => ({
 export const fetchWeather = payload => ({
   type: FETCH_WEATHER,
   callAPI: () => axios.get(setUrl(payload)),
+});
+
+export const initFavorite = favorite => ({
+  type: INIT_FAVORITE,
+  payload: { favorite },
 });
 
 export const initUnit = unit => ({
