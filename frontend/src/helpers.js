@@ -58,7 +58,7 @@ export const extractData = data => ({
     city: data.name,
     country: data.sys.country,
   },
-  weather: data.weather[0].main,
+  condition: data.weather[0].main,
   humidity: data.main.humidity,
   windSpeed: Math.round(data.wind.speed),
   temp: {

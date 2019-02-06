@@ -17,7 +17,7 @@ class AuthController < ApplicationController
 
       @id = user.id
       query = <<-SQL 
-        SELECT a.priority, b.city, b.country
+        SELECT a.priority, b.city, b.country, b.city_id
         FROM user_locations AS a
         LEFT JOIN locations AS b
           ON b.id = a.location_id

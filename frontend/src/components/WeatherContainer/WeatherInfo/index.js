@@ -1,47 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { UNITS } from 'constant';
-import { titleCase } from 'helpers';
 import { Empty, Button, Icon } from 'antd';
 import { toggleFavorite } from 'actions';
-import moment from 'moment';
+import LeftColumn from './LeftColumn';
+import RightColumn from './RightColumn';
 import styled from 'styled-components';
 
 class WeatherInfo extends Component {
   render() {
     const { weather, favorite, toggleFavorite } = this.props;
-    const { unit } = this.props.unit;
-    const status = titleCase(weather.weather);
-    const { temp, location, humidity, windSpeed, datetime } = weather;
-    const { min, max, cur } = temp;
+    const { location, datetime } = weather;
     const { city, country } = location;
-    const units = UNITS[unit];
-    const windUnit = units[WIND];
-    const tempUnit = units[TEMP];
     return (
       <Div>
         {datetime ? (
           <Fragment>
-            <LeftColumn>
-              <Location>{`${city}, ${country}`}</Location>
-              <p>Humidity: {humidity}%</p>
-              <p>Wind: {`${windSpeed}${windUnit}`}</p>
-              <LastUpdated>
-                Last updated:
-                <br />
-                {moment.unix(datetime).format('MMMM D, YYYY hh:mm:ss A')}
-              </LastUpdated>
-            </LeftColumn>
-            <RightColumn>
-              <Status>{status}</Status>
-              <Temperature>
-                <CurrentTemp>{`${cur}${tempUnit}`}</CurrentTemp>
-                <div>
-                  <p>Low: {`${min}${tempUnit}`}</p>
-                  <p>High: {`${max}${tempUnit}`}</p>
-                </div>
-              </Temperature>
-            </RightColumn>
+            <LeftColumn />
+            <RightColumn />
             <Favorite
               shape="circle-outline"
               type="ghost"
@@ -88,32 +63,6 @@ const Div = styled.div`
   }
 `;
 
-const Location = styled.p`
-  font-size: 2em;
-`;
-
-const Temperature = styled.div``;
-
-const LeftColumn = styled.div`
-  flex-grow: 4;
-`;
-
-const RightColumn = styled.div`
-  flex-grow: 1;
-`;
-
-const CurrentTemp = styled.p`
-  font-size: 1.6em;
-`;
-
-const Status = styled.p`
-  font-size: 1.4em;
-`;
-
-const LastUpdated = styled.p`
-  font-size: 0.8em;
-`;
-
 const SEmpty = styled(Empty)`
   margin: auto !important;
 `;
@@ -128,6 +77,3 @@ const Favorite = styled(Button)`
   top: 8px;
   right: 8px;
 `;
-
-const WIND = 'WIND';
-const TEMP = 'TEMP';

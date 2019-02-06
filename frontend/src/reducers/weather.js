@@ -11,7 +11,7 @@ const initialState = {
   loading: false,
   favorite: false,
   datetime: '',
-  weather: '',
+  condition: '',
   location: {
     city: '',
     country: '',

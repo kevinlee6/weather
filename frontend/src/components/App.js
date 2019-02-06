@@ -19,12 +19,12 @@ class App extends Component {
   }
 
   render() {
-    const { children, loading, weather } = this.props;
+    const { children, loading, condition } = this.props;
     return (
       <Spin spinning={loading}>
         <Layout>
           <Header />
-          <Content weather={weather}>{children}</Content>
+          <Content weather={condition}>{children}</Content>
           <Footer>Footer</Footer>
         </Layout>
       </Spin>
@@ -35,8 +35,8 @@ class App extends Component {
 const mapStateToProps = state => {
   const { unit } = state.unit;
   const { loading } = state.auth;
-  const { weather } = state.weather;
-  return { loading, weather, unit };
+  const { condition } = state.weather;
+  return { loading, condition, unit };
 };
 
 export default withRouter(
