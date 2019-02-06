@@ -6,6 +6,7 @@ import {
   SET_UNIT,
   UPDATE_WEATHER,
   TOGGLE_FAVORITE,
+  INIT_UNIT,
 } from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
@@ -40,6 +41,11 @@ export const signOut = () => ({
 export const fetchWeather = payload => ({
   type: FETCH_WEATHER,
   callAPI: () => axios.get(setUrl(payload)),
+});
+
+export const initUnit = unit => ({
+  type: INIT_UNIT,
+  payload: { unit },
 });
 
 export const setUnit = unit => ({

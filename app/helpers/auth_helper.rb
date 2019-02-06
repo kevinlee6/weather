@@ -21,4 +21,26 @@ module AuthHelper
       render json: { error: error_message }, status: 404
     end
   end
+
+  # decryption methods
+  def decrypt_cookie
+    cookies.encrypted[:token]
+  end
+
+  def decode_jwt(token)
+    JWT.decode token, ENV['JWT_SECRET'], true, { alg: 'HS256' }
+  end
+
+  def get_user_from_token(payload)
+    email_index = payload.find_index { |el| el.has_key? 'email' }
+    email = payload[email_index]['email']
+    user = User.find_by(email: email)
+  end
+
+  def extract_user_from_jwt
+    token = decrypt_cookie
+    return if !token
+    payload = decode_jwt token
+    get_user_from_token payload
+  end
 end

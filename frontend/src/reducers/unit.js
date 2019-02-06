@@ -1,4 +1,4 @@
-import { SET_UNIT } from '../actions/types';
+import { SET_UNIT, INIT_UNIT } from '../actions/types';
 import { IMPERIAL } from 'constant';
 import { suffixAsync } from 'helpers';
 
@@ -11,6 +11,10 @@ const initialState = IMPERIAL;
 export default (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {
+    case INIT_UNIT: {
+      const { unit } = payload;
+      return unit;
+    }
     case SET_UNIT: {
       const { unit } = payload;
       return unit;
