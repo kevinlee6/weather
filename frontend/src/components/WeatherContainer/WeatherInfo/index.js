@@ -1,29 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Empty, Button, Icon } from 'antd';
-import { toggleFavorite } from 'actions';
+import { Empty } from 'antd';
 import LeftColumn from './LeftColumn';
 import RightColumn from './RightColumn';
+import Favorite from './Favorite';
 import styled from 'styled-components';
 
 class WeatherInfo extends Component {
   render() {
-    const { weather, favorite, toggleFavorite } = this.props;
-    const { location, datetime } = weather;
-    const { city, country } = location;
+    const { datetime } = this.props;
     return (
       <Div>
         {datetime ? (
           <Fragment>
             <LeftColumn />
             <RightColumn />
-            <Favorite
-              shape="circle-outline"
-              type="ghost"
-              onClick={() => toggleFavorite({ favorite, city, country })}
-            >
-              <Star type="star" theme={favorite ? 'filled' : 'twoTone'} />
-            </Favorite>
+            <Favorite />
           </Fragment>
         ) : (
           <SEmpty description="Enter a location to get started" />
@@ -34,14 +26,12 @@ class WeatherInfo extends Component {
 }
 
 const mapStateToProps = state => {
-  const { weather, unit, favorite } = state;
-  return { weather, unit, favorite };
+  const { weather } = state;
+  const { datetime } = weather;
+  return { datetime };
 };
 
-export default connect(
-  mapStateToProps,
-  { toggleFavorite }
-)(WeatherInfo);
+export default connect(mapStateToProps)(WeatherInfo);
 
 const Div = styled.div`
   position: relative;
@@ -65,15 +55,4 @@ const Div = styled.div`
 
 const SEmpty = styled(Empty)`
   margin: auto !important;
-`;
-
-const Star = styled(Icon)`
-  color: yellow;
-`;
-
-const Favorite = styled(Button)`
-  position: absolute !important;
-  border: 0 !important;
-  top: 8px;
-  right: 8px;
 `;
