@@ -8,7 +8,13 @@ class UserLocationsController < ApplicationController
   end
 
   def create
-    return if !@user || !@location
+    return if !@user
+    if !@location
+      # use location.create method
+      @location = Location.new(user_location_params)
+      return if !@location.save
+    end
+
     user_id = @user.id
     location_id = @location.id
     get_user_location
@@ -18,7 +24,6 @@ class UserLocationsController < ApplicationController
       @user_location = UserLocation.new(user_id: user_id, location_id: location_id)
 
       if @user_location.save
-        @user.user_locations << @user_location
         render json: @user_location
       else
         destroy
@@ -51,6 +56,6 @@ class UserLocationsController < ApplicationController
   end
 
   def user_location_params
-    params.permit(:city, :country)
+    params.permit(:city, :country, :city_id)
   end
 end
