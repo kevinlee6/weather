@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { UNITS } from 'constant';
 import { titleCase } from 'helpers';
 import { Empty, Button, Icon } from 'antd';
+import { toggleFavorite } from 'actions';
 import moment from 'moment';
 import styled from 'styled-components';
 
 class WeatherInfo extends Component {
   render() {
-    const { weather, unit } = this.props;
+    const { weather, unit, favorite, toggleFavorite } = this.props;
     const status = titleCase(weather.weather);
     const { temp, location, humidity, windSpeed, datetime } = weather;
     const { min, max, cur } = temp;
@@ -40,8 +41,12 @@ class WeatherInfo extends Component {
                 </div>
               </Temperature>
             </RightColumn>
-            <Favorite shape="circle-outline" type="ghost">
-              <Star type="star" theme="twoTone" />
+            <Favorite
+              shape="circle-outline"
+              type="ghost"
+              onClick={() => toggleFavorite({ favorite, city, country })}
+            >
+              <Star type="star" theme={favorite ? 'filled' : 'twoTone'} />
             </Favorite>
           </Fragment>
         ) : (
@@ -53,11 +58,14 @@ class WeatherInfo extends Component {
 }
 
 const mapStateToProps = state => {
-  const { weather, unit } = state;
-  return { weather, unit };
+  const { weather, unit, favorite } = state;
+  return { weather, unit, favorite };
 };
 
-export default connect(mapStateToProps)(WeatherInfo);
+export default connect(
+  mapStateToProps,
+  { toggleFavorite }
+)(WeatherInfo);
 
 const Div = styled.div`
   position: relative;
@@ -115,6 +123,7 @@ const Star = styled(Icon)`
 
 const Favorite = styled(Button)`
   position: absolute !important;
+  border: 0 !important;
   top: 8px;
   right: 8px;
 `;

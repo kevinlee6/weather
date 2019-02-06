@@ -5,6 +5,7 @@ import {
   FETCH_WEATHER,
   SET_UNIT,
   UPDATE_WEATHER,
+  TOGGLE_FAVORITE,
 } from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
@@ -14,6 +15,7 @@ const options = {
   withCredentials: true,
 };
 
+// auth reducer
 export const register = payload => ({
   type: AUTH_USER,
   callAPI: () => axios.post('/users', payload, options),
@@ -34,6 +36,7 @@ export const signOut = () => ({
   callAPI: () => axios.delete('/auth', options),
 });
 
+// weather reducer
 export const fetchWeather = payload => ({
   type: FETCH_WEATHER,
   callAPI: () => axios.get(setUrl(payload)),
@@ -52,4 +55,9 @@ export const setBackground = payload => ({
 export const updateWeather = unit => ({
   type: UPDATE_WEATHER,
   payload: { unit },
+});
+
+export const toggleFavorite = payload => ({
+  type: TOGGLE_FAVORITE,
+  callAPI: () => axios.post('/user_locations', payload, options),
 });
