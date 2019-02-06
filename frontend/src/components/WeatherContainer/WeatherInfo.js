@@ -9,7 +9,8 @@ import styled from 'styled-components';
 
 class WeatherInfo extends Component {
   render() {
-    const { weather, unit, favorite, toggleFavorite } = this.props;
+    const { weather, favorite, toggleFavorite } = this.props;
+    const { unit } = this.props.unit;
     const status = titleCase(weather.weather);
     const { temp, location, humidity, windSpeed, datetime } = weather;
     const { min, max, cur } = temp;

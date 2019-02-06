@@ -1,19 +1,6 @@
 class UsersController < ApplicationController
   include AuthHelper
-  before_action :set_user, only: [:show, :update, :destroy]
 
-  # Don't want users to potentially access all users for this app
-  # def index
-  #   @users = User.all
-  #   render json: @users
-  # end
-
-  # GET /api/users/1
-  def show
-    render json: @user
-  end
-
-  # POST /api/users 
   def create
     # reject if password != password_confirmation
     error = UsersHelper.handle_create_errors(params)
@@ -29,23 +16,28 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/users/1
-  def update
-    if @user.update(user_params)
-      render json: @user
+  def toggle_unit
+    user = extract_user_from_cookie
+
+    if user
+      current_unit = user.unit
+      incoming_unit = unit_param[:unit]
+      return render(json: { unit: current_unit, error: 'Units are the same' }) if incoming_unit == current_unit
+      next_unit = current_unit == 'metric' ? 'imperial' : 'metric'
+
+      if user.update_attribute(:unit, next_unit)
+        render json: { unit: next_unit }
+      else
+        render json: user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: unit_param 
     end
   end
 
-  # DELETE /api/users/1
-  def destroy
-    @user.destroy
-  end
-
   private
-    def set_user
-      @user = User.find(params[:id])
+    def unit_param
+      params.permit(:unit)
     end
 
     def user_params

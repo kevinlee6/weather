@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
-    resources :users
+    resources :users, only: [:create]
+    post '/users/toggle_unit', to: "users#toggle_unit"
     resources :locations
     resources :user_locations
     scope :auth do

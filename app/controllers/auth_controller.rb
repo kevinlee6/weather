@@ -10,8 +10,9 @@ class AuthController < ApplicationController
   end
 
   def verify
-    user = extract_user_from_jwt
+    user = extract_user_from_cookie
     if user
+      email = user.email
       unit = user.unit
       render json: { email: email, unit: unit }
     else

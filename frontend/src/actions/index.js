@@ -50,7 +50,7 @@ export const initUnit = unit => ({
 
 export const setUnit = unit => ({
   type: SET_UNIT,
-  payload: { unit },
+  callAPI: () => axios.post('/users/toggle_unit', { unit }, options),
 });
 
 export const setBackground = payload => ({

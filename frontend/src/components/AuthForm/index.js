@@ -8,13 +8,20 @@ import EmailAndPasswordFields from './EmailAndPasswordFields';
 // import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
 import Buttons from './Buttons';
-import { register, signIn } from 'actions';
+import { register, signIn, initUnit, updateWeather } from 'actions';
 import { REGISTER, SIGN_IN } from 'constant';
 import { SignInSchema, RegisterSchema } from './schema';
 
 class AuthForm extends Component {
   handleSubmit = values => {
-    const { signIn, register, command, history } = this.props;
+    const {
+      signIn,
+      register,
+      initUnit,
+      updateWeather,
+      command,
+      history,
+    } = this.props;
     switch (command) {
       case REGISTER: {
         return register(values).then(
@@ -39,6 +46,8 @@ class AuthForm extends Component {
             if (error) {
               message.error(error);
             } else {
+              const unit = resolve && resolve.unit;
+              unit && initUnit(unit) && updateWeather(unit);
               history.push('/');
               message.success('Signed in');
             }
@@ -98,7 +107,7 @@ class AuthForm extends Component {
 export default withRouter(
   connect(
     null,
-    { register, signIn }
+    { register, signIn, initUnit, updateWeather }
   )(AuthForm)
 );
 

@@ -15,7 +15,8 @@ module AuthHelper
     if token
       # may want to have rails secrets
       cookies.encrypted[:token] = {value: token, httponly: true}
-      render json: {email: email}
+      unit = user.unit
+      render json: { email: email, unit: unit }
     else
       cookies.delete :token
       render json: { error: error_message }, status: 404
@@ -37,7 +38,7 @@ module AuthHelper
     user = User.find_by(email: email)
   end
 
-  def extract_user_from_jwt
+  def extract_user_from_cookie
     token = decrypt_cookie
     return if !token
     payload = decode_jwt token

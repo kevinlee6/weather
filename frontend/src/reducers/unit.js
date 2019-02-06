@@ -6,18 +6,40 @@ const [SET_UNIT_REQUEST, SET_UNIT_SUCCESS, SET_UNIT_FAILURE] = suffixAsync(
   SET_UNIT
 );
 
-const initialState = IMPERIAL;
+const initialState = {
+  loading: false,
+  unit: IMPERIAL,
+};
 
 export default (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {
     case INIT_UNIT: {
       const { unit } = payload;
-      return unit;
+      return {
+        ...state,
+        unit,
+      };
     }
-    case SET_UNIT: {
+    case SET_UNIT_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case SET_UNIT_SUCCESS: {
       const { unit } = payload;
-      return unit;
+      return {
+        ...state,
+        loading: false,
+        unit,
+      };
+    }
+    case SET_UNIT_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+      };
     }
     default: {
       return state;

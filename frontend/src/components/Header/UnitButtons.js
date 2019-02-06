@@ -56,7 +56,7 @@ class UnitButtons extends Component {
 }
 
 const mapStateToProps = state => {
-  const { unit } = state;
+  const unit = state.unit && state.unit.unit;
   return { unit };
 };
 
