@@ -74,7 +74,8 @@ class WeatherForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const { unit, weather } = state;
+  const { weather } = state;
+  const { unit } = state.unit;
   const { loading } = weather;
   return { unit, loading };
 };
