@@ -15,6 +15,10 @@ class LocationsController < ApplicationController
   end
 
   def location_params
-    params.permit(:city, :country)
+    params.permit(:city, :country, :city_id)
+  end
+
+  def check_if_favorite
+
   end
 end

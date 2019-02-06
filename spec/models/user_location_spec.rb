@@ -56,7 +56,7 @@ RSpec.describe UserLocation, type: :model do
         user
         location
         created1 = created
-        location2 = create :location, city: 'New Jersey'
+        location2 = create :location
         created2 = create(:user_location, location_id: location2.id)
         expect(created2.priority).to eq 2
       end

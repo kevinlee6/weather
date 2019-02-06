@@ -43,7 +43,8 @@ CREATE TABLE public.locations (
     city character varying NOT NULL,
     country character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    city_id integer NOT NULL
 );
 
 
@@ -203,10 +204,10 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: index_locations_on_city_and_country; Type: INDEX; Schema: public; Owner: -
+-- Name: index_locations_on_city_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_locations_on_city_and_country ON public.locations USING btree (city, country);
+CREATE UNIQUE INDEX index_locations_on_city_id ON public.locations USING btree (city_id);
 
 
 --
@@ -247,6 +248,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190201025148'),
 ('20190205035129'),
 ('20190205042053'),
-('20190206001213');
+('20190206001213'),
+('20190206060620'),
+('20190206061818');
 
 

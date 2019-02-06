@@ -23,6 +23,7 @@ const initialState = {
   },
   humidity: '',
   windSpeed: '',
+  id: '',
 };
 
 export default (state = initialState, action) => {

@@ -66,6 +66,7 @@ export const extractData = data => ({
     max: Math.round(data.main.temp_max),
     cur: Math.round(data.main.temp),
   },
+  city_id: data.id,
 });
 
 // Handled by Formik/Yup
