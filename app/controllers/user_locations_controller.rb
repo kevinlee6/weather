@@ -23,11 +23,11 @@ class UserLocationsController < ApplicationController
     else
       @user_location = UserLocation.new(user_id: user_id, location_id: location_id)
 
-      if @user_location.save
-        render json: @user_location
-      else
+      if !@user_location.save
         destroy
       end
+
+      render json: { location: @location, favorite: @user_location }
     end
   end
 
@@ -36,6 +36,7 @@ class UserLocationsController < ApplicationController
 
   def destroy
     UserLocation.destroy @user_location.id
+    render json: { location: @location }
   end
 
   private

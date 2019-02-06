@@ -4,20 +4,24 @@ import { toggleFavorite } from 'actions';
 import { Button, Icon } from 'antd';
 import styled from 'styled-components';
 
-const Favorite = ({ toggleFavorite, favorite, city, country, city_id }) => (
-  <SButton
-    shape="circle-outline"
-    type="ghost"
-    onClick={() => toggleFavorite({ favorite, city, country, city_id })}
-  >
-    <Star type="star" theme={favorite ? 'filled' : 'twoTone'} />
-  </SButton>
-);
+const Favorite = ({ toggleFavorite, allCityIds, city, country, city_id }) => {
+  const isFavorite = allCityIds.includes(city_id);
+  return (
+    <SButton
+      shape="circle-outline"
+      type="ghost"
+      onClick={() => toggleFavorite({ city, country, city_id })}
+    >
+      <Star type="star" theme={isFavorite ? 'filled' : 'twoTone'} />
+    </SButton>
+  );
+};
 
 const mapStateToProps = state => {
   const { favorite, weather } = state;
   const { location, city_id } = weather;
-  return { ...location, favorite, city_id };
+  const { allCityIds } = favorite;
+  return { ...location, allCityIds, city_id };
 };
 
 export default connect(
