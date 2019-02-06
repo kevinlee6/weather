@@ -13,6 +13,9 @@ class App extends Component {
     const initValues = await verify();
     const unit = initValues && initValues.unit;
     unit && initUnit(unit);
+    const userLocations = initValues && initValues.user_locations;
+    console.log(userLocations);
+
     await fetchWeather({ query: 'New York', unit: unit || this.props.unit });
   }
 

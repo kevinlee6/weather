@@ -4,5 +4,5 @@ class Location < ApplicationRecord
 
   validates :city, presence: true
   validates :country, presence: true
-  validates_uniqueness_of :city, scope: :country
+  validates_uniqueness_of :city, scope: :country, case_sensitive: false
 end
