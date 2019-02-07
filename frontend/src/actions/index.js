@@ -8,6 +8,7 @@ import {
   TOGGLE_FAVORITE,
   INIT_UNIT,
   INIT_FAVORITE,
+  REORDER_FAVORITE,
 } from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
@@ -72,4 +73,9 @@ export const updateWeather = unit => ({
 export const toggleFavorite = payload => ({
   type: TOGGLE_FAVORITE,
   callAPI: () => axios.post('/user_locations', payload, options),
+});
+
+export const reorderFavorite = payload => ({
+  type: REORDER_FAVORITE,
+  callAPI: () => axios.post(),
 });

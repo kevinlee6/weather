@@ -9,7 +9,7 @@ const FavoriteList = ({ favorite }) => {
   const favorites = mapIds(favorite);
   return (
     <Droppable droppableId="droppable">
-      {(provided, snapshot) => (
+      {provided => (
         <div ref={provided.innerRef}>
           <List
             size="large"

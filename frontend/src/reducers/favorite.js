@@ -1,11 +1,18 @@
 import { INIT_FAVORITE, TOGGLE_FAVORITE } from 'actions/types';
 import { suffixAsync } from 'helpers';
+import { REORDER_FAVORITE } from '../actions/types';
 
 const [
   TOGGLE_FAVORITE_REQUEST,
   TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
 ] = suffixAsync(TOGGLE_FAVORITE);
+
+const [
+  REORDER_FAVORITE_REQUEST,
+  REORDER_FAVORITE_SUCCESS,
+  REORDER_FAVORITE_FAILURE,
+] = suffixAsync(REORDER_FAVORITE);
 
 const initialState = {
   loading: false,
@@ -65,6 +72,24 @@ export default (state = initialState, action) => {
       };
     }
     case TOGGLE_FAVORITE_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case REORDER_FAVORITE_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case REORDER_FAVORITE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case REORDER_FAVORITE_FAILURE: {
       return {
         ...state,
         loading: false,

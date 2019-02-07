@@ -18,7 +18,13 @@ class Sidebar extends Component {
   };
 
   onDragEnd = result => {
-    if (!result.destination) return;
+    const { destination, source, draggableId } = result;
+    const droppedToSameLocation =
+      destination &&
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index;
+    const noChange = !destination || droppedToSameLocation;
+    if (noChange) return;
   };
 
   render() {
