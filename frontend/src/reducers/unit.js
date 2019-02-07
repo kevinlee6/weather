@@ -21,20 +21,20 @@ export default (state = initialState, action) => {
         unit,
       };
     }
+    case SET_UNIT: {
+      const { unit } = payload;
+      return {
+        ...state,
+        unit,
+      };
+    }
     case SET_UNIT_REQUEST: {
       return {
         ...state,
         loading: true,
       };
     }
-    case SET_UNIT_SUCCESS: {
-      const { unit } = payload;
-      return {
-        ...state,
-        loading: false,
-        unit,
-      };
-    }
+    case SET_UNIT_SUCCESS:
     case SET_UNIT_FAILURE: {
       return {
         ...state,

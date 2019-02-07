@@ -58,6 +58,8 @@ export const initUnit = unit => ({
 export const setUnit = unit => ({
   type: SET_UNIT,
   callAPI: () => axios.post('/users/toggle_unit', { unit }, options),
+  payload: { unit },
+  reduxFirst: true,
 });
 
 export const setBackground = payload => ({
@@ -78,4 +80,6 @@ export const toggleFavorite = payload => ({
 export const reorderFavorite = payload => ({
   type: REORDER_FAVORITE,
   callAPI: () => axios.patch('/user_locations', payload, options),
+  payload,
+  reduxFirst: true,
 });

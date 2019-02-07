@@ -3,7 +3,7 @@ import { applyMiddleware } from 'redux';
 import { suffixAsync, titleCase } from 'helpers';
 
 const callAPIMiddleware = ({ dispatch }) => next => action => {
-  const { type, callAPI } = action;
+  const { type, callAPI, reduxFirst } = action;
   if (!type || !callAPI) {
     // Normal action: pass it on
     return next(action);
@@ -15,6 +15,11 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
 
   if (typeof callAPI !== 'function') {
     throw new Error('Expected callAPI to be a function.');
+  }
+
+  if (reduxFirst) {
+    const { payload } = action;
+    dispatch({ type, payload });
   }
 
   // return type: capitalized strings

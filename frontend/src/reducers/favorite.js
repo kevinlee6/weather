@@ -77,24 +77,25 @@ export default (state = initialState, action) => {
         loading: false,
       };
     }
+    case REORDER_FAVORITE: {
+      const destination = payload.destination - 1;
+      const source = payload.source - 1;
+      const allCityIds = [...state.allCityIds];
+      const spliced = allCityIds.splice(source, 1);
+      allCityIds.splice(destination, 0, spliced[0]);
+
+      return {
+        ...state,
+        allCityIds,
+      };
+    }
     case REORDER_FAVORITE_REQUEST: {
       return {
         ...state,
         loading: true,
       };
     }
-    case REORDER_FAVORITE_SUCCESS: {
-      const { destination, source } = payload;
-      const allCityIds = [...state.allCityIds];
-      const spliced = allCityIds.splice(source, 1);
-      allCityIds.splice(destination, 0, spliced);
-
-      return {
-        ...state,
-        loading: false,
-        allCityIds,
-      };
-    }
+    case REORDER_FAVORITE_SUCCESS:
     case REORDER_FAVORITE_FAILURE: {
       return {
         ...state,
