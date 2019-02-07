@@ -6,6 +6,7 @@ const [
   TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
 ] = suffixAsync(TOGGLE_FAVORITE);
+
 const initialState = {
   loading: false,
   allCityIds: [],
@@ -46,13 +47,16 @@ export default (state = initialState, action) => {
       const { location, favorite } = payload;
       const { allCityIds, byCityId } = state;
       const { city_id, city, country } = location;
+
       const newAllCityIds = favorite
         ? [...allCityIds, city_id]
         : allCityIds.filter(id => id !== city_id);
       const newByCityId = { ...byCityId };
+
       favorite
         ? (newByCityId[city_id] = { city, country })
         : delete newByCityId[city_id];
+
       return {
         ...state,
         loading: false,

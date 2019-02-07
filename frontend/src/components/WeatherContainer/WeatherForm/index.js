@@ -34,7 +34,7 @@ class WeatherForm extends Component {
   };
 
   render() {
-    const initialValues = { query: 'New York', country: '' };
+    const initialValues = { query: 'New York', country: 'US' };
     const { loading } = this.props;
     return (
       <Formik

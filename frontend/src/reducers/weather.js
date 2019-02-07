@@ -1,4 +1,4 @@
-import { FETCH_WEATHER, UPDATE_WEATHER, TOGGLE_FAVORITE } from 'actions/types';
+import { FETCH_WEATHER, UPDATE_WEATHER } from 'actions/types';
 import { suffixAsync, extractData, convertUnitsInState } from 'helpers';
 
 const [
@@ -52,13 +52,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-      };
-    }
-    case TOGGLE_FAVORITE: {
-      const { favorite } = payload;
-      return {
-        ...state,
-        favorite: !favorite,
       };
     }
     default: {
