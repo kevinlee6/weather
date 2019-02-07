@@ -4,8 +4,9 @@ class UserLocation < ApplicationRecord
   belongs_to :user
   belongs_to :location
 
+  # priority 0 will be used as temp value when swapping priorities
   validates :priority, presence: true,
-                       numericality: { only_integer: true, greater_than: 0 }
+                       numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_uniqueness_of :location_id, scope: :user_id
 
   private

@@ -32,6 +32,8 @@ class UserLocationsController < ApplicationController
   end
 
   def update
+    to_splice = update_params[:source] + 1
+    to_insert = update_params[:destination] + 1
   end
 
   def destroy
@@ -68,5 +70,9 @@ class UserLocationsController < ApplicationController
 
   def user_location_params
     params.permit(:city, :country, :city_id)
+  end
+
+  def update_params
+    params.permit(:destination, :source)
   end
 end
