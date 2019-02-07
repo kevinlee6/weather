@@ -84,9 +84,15 @@ export default (state = initialState, action) => {
       };
     }
     case REORDER_FAVORITE_SUCCESS: {
+      const { destination, source } = payload;
+      const allCityIds = [...state.allCityIds];
+      const spliced = allCityIds.splice(source, 1);
+      allCityIds.splice(destination, 0, spliced);
+
       return {
         ...state,
         loading: false,
+        allCityIds,
       };
     }
     case REORDER_FAVORITE_FAILURE: {
@@ -96,7 +102,10 @@ export default (state = initialState, action) => {
       };
     }
     default: {
-      return state;
+      return {
+        ...state,
+        loading: false,
+      };
     }
   }
 };

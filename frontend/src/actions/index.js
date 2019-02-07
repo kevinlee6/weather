@@ -77,5 +77,5 @@ export const toggleFavorite = payload => ({
 
 export const reorderFavorite = payload => ({
   type: REORDER_FAVORITE,
-  callAPI: () => axios.post('/user_locations/update', payload, options),
+  callAPI: () => axios.patch('/user_locations', payload, options),
 });

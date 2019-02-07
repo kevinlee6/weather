@@ -54,8 +54,8 @@ class UserLocationsController < ApplicationController
             THEN priority - 1
 
           WHEN #{to_insert} < #{to_splice}
-            AND priority < #{to_splice}
             AND priority >= #{to_insert}
+            AND priority < #{to_splice}
             THEN priority + 1
 
           ELSE priority
@@ -63,7 +63,13 @@ class UserLocationsController < ApplicationController
         WHERE user_locations.user_id = #{@user.id}
       SQL
 
-    ActiveRecord::Base.connection.execute(query)
+    res = ActiveRecord::Base.connection.execute(query)
+    if res
+      # back to subtract one for favorite reducer to handle in frontend
+      render json: { destination: to_insert - 1, source: to_splice - 1}
+    else
+      render json: { error: 'Database error for patch request' }
+    end
   end
 
   def destroy
