@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { reorderFavorite } from 'actions';
 import { Drawer, Icon as AntdIcon } from 'antd';
 import AuthLinks from './AuthLinks';
 import FavoriteList from './FavoriteList';
@@ -18,6 +19,7 @@ class Sidebar extends Component {
   };
 
   onDragEnd = result => {
+    const { reorderFavorite } = this.props;
     const { destination, source, draggableId } = result;
     const droppedToSameLocation =
       destination &&
@@ -25,6 +27,8 @@ class Sidebar extends Component {
       destination.index === source.index;
     const noChange = !destination || droppedToSameLocation;
     if (noChange) return;
+
+    reorderFavorite({ destination: destination.index, source: source.index });
   };
 
   render() {
@@ -51,7 +55,15 @@ class Sidebar extends Component {
   }
 }
 
-export default connect(null)(Sidebar);
+const mapStateToProps = state => {
+  const { favorite } = state;
+  return { favorite };
+};
+
+export default connect(
+  mapStateToProps,
+  { reorderFavorite }
+)(Sidebar);
 
 const Icon = styled(AntdIcon)`
   color: white;
