@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post '/users/toggle_unit', to: "users#toggle_unit"
     resources :locations
     resources :user_locations
+    patch '/user_locations', to: "user_locations#reorder"
     scope :auth do
       post '/', to: "auth#create"
       post '/verify', to: "auth#verify"

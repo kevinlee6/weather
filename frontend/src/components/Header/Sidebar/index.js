@@ -28,7 +28,11 @@ class Sidebar extends Component {
     const noChange = !destination || droppedToSameLocation;
     if (noChange) return;
 
-    reorderFavorite({ destination: destination.index, source: source.index });
+    // priority starts at 1; not zero-index based
+    reorderFavorite({
+      destination: destination.index + 1,
+      source: source.index + 1,
+    });
   };
 
   render() {

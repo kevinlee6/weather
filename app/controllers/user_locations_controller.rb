@@ -1,8 +1,8 @@
 class UserLocationsController < ApplicationController
   include AuthHelper
-  before_action :get_user, only: [:index, :create]
+  before_action :get_user, only: [:index, :create, :reorder]
   before_action :get_location, only: [:create]
-  before_action :get_user_locations, only: [:index]
+  before_action :get_user_locations, only: [:index, :reorder]
 
   def index
   end
@@ -31,9 +31,39 @@ class UserLocationsController < ApplicationController
     end
   end
 
-  def update
-    to_splice = update_params[:source] + 1
-    to_insert = update_params[:destination] + 1
+  def reorder
+    size = @user_locations.size
+    to_splice = update_params[:source]
+    to_insert = update_params[:destination]
+    return if
+      to_splice == to_insert || 
+      to_splice <= 0 ||
+      to_insert <= 0 ||
+      to_splice > size ||
+      to_insert > size
+
+    query =
+      <<-SQL
+        UPDATE user_locations
+        SET priority = CASE
+          WHEN priority = #{to_splice} THEN #{to_insert}
+
+          WHEN #{to_insert} > #{to_splice}
+            AND priority <= #{to_insert}
+            AND priority > #{to_splice}
+            THEN priority - 1
+
+          WHEN #{to_insert} < #{to_splice}
+            AND priority < #{to_splice}
+            AND priority >= #{to_insert}
+            THEN priority + 1
+
+          ELSE priority
+        END
+        WHERE user_locations.user_id = #{@user.id}
+      SQL
+
+    ActiveRecord::Base.connection.execute(query)
   end
 
   def destroy
