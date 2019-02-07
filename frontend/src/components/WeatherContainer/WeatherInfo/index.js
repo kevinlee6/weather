@@ -8,14 +8,14 @@ import styled from 'styled-components';
 
 class WeatherInfo extends Component {
   render() {
-    const { datetime } = this.props;
+    const { datetime, authenticated } = this.props;
     return (
       <Div>
         {datetime ? (
           <Fragment>
             <LeftColumn />
             <RightColumn />
-            <Favorite />
+            {authenticated ? <Favorite /> : null}
           </Fragment>
         ) : (
           <SEmpty description="Enter a location to get started" />
@@ -26,9 +26,10 @@ class WeatherInfo extends Component {
 }
 
 const mapStateToProps = state => {
-  const { weather } = state;
+  const { weather, auth } = state;
   const { datetime } = weather;
-  return { datetime };
+  const { authenticated } = auth;
+  return { datetime, authenticated };
 };
 
 export default connect(mapStateToProps)(WeatherInfo);

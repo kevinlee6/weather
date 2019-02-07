@@ -12,7 +12,10 @@ class App extends Component {
     const { verify, fetchWeather, initUnit, initFavorite } = this.props;
     const initValues = await verify();
     const unit = initValues && initValues.unit;
-    unit && initUnit(unit);
+    const currUnit = this.props.unit;
+    if (unit && unit !== currUnit) {
+      initUnit(unit);
+    }
     const favorite = initValues && initValues.user_locations;
     favorite && initFavorite(favorite);
     await fetchWeather({ query: 'New York', unit: unit || this.props.unit });

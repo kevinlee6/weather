@@ -2,7 +2,7 @@ class UserLocationsController < ApplicationController
   include AuthHelper
   before_action :get_user, only: [:index, :create]
   before_action :get_location, only: [:create]
-  before_action :get_locations, only: [:index]
+  before_action :get_user_locations, only: [:index]
 
   def index
   end
@@ -35,7 +35,9 @@ class UserLocationsController < ApplicationController
   end
 
   def destroy
+    @priority = @user_location.priority
     UserLocation.destroy @user_location.id
+    update_priorities
     render json: { location: @location }
   end
 
@@ -44,8 +46,8 @@ class UserLocationsController < ApplicationController
     @user = extract_user_from_cookie
   end
 
-  def get_locations
-    @locations = @user.user_locations
+  def get_user_locations
+    @user_locations = @user.user_locations
   end
 
   def get_location
@@ -54,6 +56,14 @@ class UserLocationsController < ApplicationController
 
   def get_user_location
     @user_location = UserLocation.find_by(user_id: @user.id, location_id: @location.id)
+  end
+
+  def update_priorities
+    get_user_locations
+    @size = @user_locations.size
+    diff = @priority - 1
+    # probably better method than this
+    @user_locations.offset(diff).update_all('priority = priority - 1')
   end
 
   def user_location_params

@@ -22,6 +22,7 @@ class AuthForm extends Component {
       command,
       history,
     } = this.props;
+    const currUnit = this.props.unit;
     switch (command) {
       case REGISTER: {
         return register(values).then(
@@ -47,7 +48,10 @@ class AuthForm extends Component {
               message.error(error);
             } else {
               const unit = resolve && resolve.unit;
-              unit && initUnit(unit) && updateWeather(unit);
+              if (unit && currUnit !== unit) {
+                initUnit(unit);
+                updateWeather(unit);
+              }
               history.push('/');
               message.success('Signed in');
             }
@@ -104,9 +108,11 @@ class AuthForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({ unit: state.unit.unit });
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { register, signIn, initUnit, updateWeather }
   )(AuthForm)
 );
