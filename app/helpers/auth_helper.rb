@@ -14,7 +14,13 @@ module AuthHelper
 
     if token
       # may want to have rails secrets
-      cookies.encrypted[:token] = {value: token, httponly: true}
+      prod = ENV['PRODUCTION_DOMAIN']
+      cookies.encrypted[:token] = {
+        value: token,
+        httponly: true,
+        secure: !!prod,
+        domain: prod || 'localhost'
+      }
       get_favorites user
     else
       cookies.delete :token

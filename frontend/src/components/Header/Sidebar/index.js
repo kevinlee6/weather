@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { reorderFavorite } from 'actions';
-import { Drawer, Icon as AntdIcon } from 'antd';
-import AuthLinks from './AuthLinks';
-import FavoriteList from './FavoriteList';
-import { DragDropContext } from 'react-beautiful-dnd';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { reorderFavorite } from "actions";
+import { Drawer, Icon as AntdIcon } from "antd";
+import AuthLinks from "./AuthLinks";
+import FavoriteList from "./FavoriteList";
+import { DragDropContext } from "react-beautiful-dnd";
+import styled from "styled-components";
 
 class Sidebar extends Component {
   state = { visible: false };
@@ -31,7 +31,7 @@ class Sidebar extends Component {
     // priority starts at 1; not zero-index based
     reorderFavorite({
       destination: destination.index + 1,
-      source: source.index + 1,
+      source: source.index + 1
     });
   };
 
@@ -46,7 +46,7 @@ class Sidebar extends Component {
           onClick={this.showDrawer}
         />
         <Drawer
-          title={<AuthLinks closedrawer={this.onClose} />}
+          title={<AuthLinks closeDrawer={this.onClose} />}
           placement="left"
           onClose={this.onClose}
           visible={this.state.visible}

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { signOut } from 'actions';
-import { ListItem } from './Styled';
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import { signOut } from "actions";
+import { ListItem } from "./Styled";
 
-const AuthLinks = ({ authenticated, signOut, closedrawer }) => (
-  <div onClick={closedrawer}>
+const AuthLinks = ({ authenticated, signOut, closeDrawer }) => (
+  <div onClick={closeDrawer}>
     {authenticated ? (
       <ListItem handleClick={signOut}>Sign out</ListItem>
     ) : (
