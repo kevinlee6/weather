@@ -3,8 +3,8 @@ module AuthHelper
     JWT.encode(payload, ENV['JWT_SECRET'], 'HS256') 
   end
 
-  def sign_in(user_params)
-    email, password = user_params[:email], user_params[:password]
+  def sign_in
+    email, password = params[:email], params[:password]
     user = User.find_by(email: email)
     pass = user && user.authenticate(password)
     error_message = 'Username or password incorrect'

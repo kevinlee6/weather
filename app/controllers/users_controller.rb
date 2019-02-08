@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     if @user.save
-      sign_in user_params
+      sign_in
     else
       render json: @user.errors, status: :unprocessable_entity
     end
