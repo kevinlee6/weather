@@ -2,6 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export default () => (
+  <SLink to="/">
+    <Div>
+      <Logo />
+      <Title />
+    </Div>
+  </SLink>
+);
+
 const Img = styled.img`
   max-width: 66px;
   padding: 0 10px;
@@ -29,12 +38,3 @@ const Div = styled.div`
 
 const Logo = () => <Img src="/logo.png" />;
 const Title = () => <H1>Weather</H1>;
-
-export default () => (
-  <SLink to="/">
-    <Div>
-      <Logo />
-      <Title />
-    </Div>
-  </SLink>
-);

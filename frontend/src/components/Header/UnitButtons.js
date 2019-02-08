@@ -5,20 +5,6 @@ import { setUnit, updateWeather } from 'actions';
 import { IMPERIAL, METRIC } from 'constant';
 import styled from 'styled-components';
 
-const ButtonGroup = styled(Button.Group)`
-  white-space: nowrap !important;
-  margin-right: 10px;
-`;
-
-const SButton = styled(Button)`
-  color: white !important;
-`;
-
-const UNITS = {
-  [METRIC]: '°C',
-  [IMPERIAL]: '°F',
-};
-
 class UnitButtons extends Component {
   isActive = target => {
     const { unit } = this.props;
@@ -64,3 +50,17 @@ export default connect(
   mapStateToProps,
   { setUnit, updateWeather }
 )(UnitButtons);
+
+const ButtonGroup = styled(Button.Group)`
+  white-space: nowrap !important;
+  margin-right: 10px;
+`;
+
+const SButton = styled(Button)`
+  color: white !important;
+`;
+
+const UNITS = {
+  [METRIC]: '°C',
+  [IMPERIAL]: '°F',
+};

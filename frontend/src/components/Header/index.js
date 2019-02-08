@@ -7,6 +7,25 @@ import AuthButtons from './AuthButtons';
 import styled from 'styled-components';
 
 const { Header } = Layout;
+export default class extends Component {
+  render() {
+    return (
+      <HeaderContainer>
+        <InnerHeader>
+          <DivLeft>
+            <Sidebar />
+            <Logo />
+          </DivLeft>
+          <DivRight>
+            <UnitButtons />
+            <AuthButtons />
+          </DivRight>
+        </InnerHeader>
+      </HeaderContainer>
+    );
+  }
+}
+
 const HeaderContainer = styled(Header)`
   color: white;
   padding: 0 !important;
@@ -33,22 +52,3 @@ const DivLeft = styled(Div)`
 const DivRight = styled(Div)`
   justify-content: flex-end;
 `;
-
-export default class extends Component {
-  render() {
-    return (
-      <HeaderContainer>
-        <InnerHeader>
-          <DivLeft>
-            <Sidebar />
-            <Logo />
-          </DivLeft>
-          <DivRight>
-            <UnitButtons />
-            <AuthButtons />
-          </DivRight>
-        </InnerHeader>
-      </HeaderContainer>
-    );
-  }
-}

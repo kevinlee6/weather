@@ -6,27 +6,6 @@ import { Alert } from 'antd';
 import { SIGN_IN, REGISTER } from 'constant';
 import styled from 'styled-components';
 
-const SAlert = styled(Alert)`
-  font-size: 1.2em !important;
-  font-weight: 500 !important;
-  margin-bottom: 15px !important;
-`;
-
-const Register = () => <Link to={`/${REGISTER}`}>Create an account</Link>;
-
-const SignIn = () => <Link to={`/${SIGN_IN}`}>sign in</Link>;
-
-const WelcomeMessage = () => (
-  <span>
-    Get the latest weather! {<Register />} or {<SignIn />} to have access to
-    saved locations.
-  </span>
-);
-
-const NotLoggedInMessage = () => (
-  <SAlert message={<WelcomeMessage />} type="info" closable={true} />
-);
-
 class Home extends Component {
   renderIfAuth = () => {
     const { authenticated } = this.props;
@@ -49,3 +28,24 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Home);
+
+const SAlert = styled(Alert)`
+  font-size: 1.2em !important;
+  font-weight: 500 !important;
+  margin-bottom: 15px !important;
+`;
+
+const Register = () => <Link to={`/${REGISTER}`}>Create an account</Link>;
+
+const SignIn = () => <Link to={`/${SIGN_IN}`}>sign in</Link>;
+
+const WelcomeMessage = () => (
+  <span>
+    Get the latest weather! {<Register />} or {<SignIn />} to have access to
+    saved locations.
+  </span>
+);
+
+const NotLoggedInMessage = () => (
+  <SAlert message={<WelcomeMessage />} type="info" closable={true} />
+);

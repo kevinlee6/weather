@@ -5,28 +5,6 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'actions';
 import styled from 'styled-components';
 
-const Authenticated = ({ handleSignOut }) => (
-  <Button onClick={handleSignOut}>Sign out</Button>
-);
-
-const NotAuthenticated = () => (
-  <Button.Group>
-    <Button>
-      <Link to="/signin">Sign In</Link>
-    </Button>
-    <Button>
-      <Link to="/register">Register</Link>
-    </Button>
-  </Button.Group>
-);
-
-const AuthButtonContainer = styled.div`
-  margin: 0 15px;
-  @media (max-width: 576px) {
-    display: none;
-  }
-`;
-
 class AuthButtons extends Component {
   handleSignOut = () => {
     const { signOut } = this.props;
@@ -60,3 +38,25 @@ export default connect(
   mapStateToProps,
   { signOut }
 )(AuthButtons);
+
+const Authenticated = ({ handleSignOut }) => (
+  <Button onClick={handleSignOut}>Sign out</Button>
+);
+
+const NotAuthenticated = () => (
+  <Button.Group>
+    <Button>
+      <Link to="/signin">Sign In</Link>
+    </Button>
+    <Button>
+      <Link to="/register">Register</Link>
+    </Button>
+  </Button.Group>
+);
+
+const AuthButtonContainer = styled.div`
+  margin: 0 15px;
+  @media (max-width: 576px) {
+    display: none;
+  }
+`;
