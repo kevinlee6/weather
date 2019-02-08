@@ -1,6 +1,8 @@
-# Weather App
+# [Weather App](https://weather-kevinlee6.herokuapp.com/)
 
 Stay up-to-date with the latest weather! Search weather conditions of different cities over the world with data provided from OpenWeatherMap. Create an account to save/organize locations.
+
+![Mobile home page](/media/mobile-homepage.png)
 
 ## Tech Stack
 
