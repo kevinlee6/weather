@@ -36,6 +36,8 @@ class Sidebar extends Component {
   };
 
   render() {
+    const { auth } = this.props;
+    const { authenticated } = auth;
     return (
       <div>
         <Icon
@@ -49,9 +51,16 @@ class Sidebar extends Component {
           onClose={this.onClose}
           visible={this.state.visible}
         >
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <FavoriteList />
-          </DragDropContext>
+          {authenticated ? (
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <FavoriteList />
+            </DragDropContext>
+          ) : (
+            <Div>
+              Saved locations will be unlocked here when you register or sign
+              in!
+            </Div>
+          )}
         </Drawer>
       </div>
     );
@@ -59,14 +68,20 @@ class Sidebar extends Component {
 }
 
 const mapStateToProps = state => {
-  const { favorite } = state;
-  return { favorite };
+  const { auth } = state;
+  return { auth };
 };
 
 export default connect(
   mapStateToProps,
   { reorderFavorite }
 )(Sidebar);
+
+const Div = styled.div`
+  margin-top: 5vh;
+  color: brown;
+  font-size: 1.6em;
+`;
 
 const Icon = styled(AntdIcon)`
   color: white;
