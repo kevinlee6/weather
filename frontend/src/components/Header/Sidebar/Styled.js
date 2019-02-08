@@ -8,9 +8,9 @@ const StyledLink = styled(Link)`
   font-size: 1.6em;
 `;
 
-export const ListItem = ({ children, link = '/', handleClick }) => (
+export const ListItem = ({ children, link = '/', handleclick }) => (
   <List.Item>
-    <StyledLink to={link} onClick={handleClick}>
+    <StyledLink to={link} onClick={handleclick}>
       {children}
     </StyledLink>
   </List.Item>

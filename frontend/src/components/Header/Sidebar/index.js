@@ -20,7 +20,7 @@ class Sidebar extends Component {
 
   onDragEnd = result => {
     const { reorderFavorite } = this.props;
-    const { destination, source, draggableId } = result;
+    const { destination, source } = result;
     const droppedToSameLocation =
       destination &&
       destination.droppableId === source.droppableId &&
@@ -51,7 +51,6 @@ class Sidebar extends Component {
         >
           <DragDropContext onDragEnd={this.onDragEnd}>
             <FavoriteList />
-            <div>Hello world</div>
           </DragDropContext>
         </Drawer>
       </div>

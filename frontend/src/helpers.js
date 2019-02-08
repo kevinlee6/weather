@@ -8,11 +8,19 @@ export const titleCase = word => {
   }
 };
 
+// Update: abandon plan bc query by city and zip code does not give same city id
+// I assume that there are no cities with digits in name
+// const CITY_REGEX = /^\D+$/;
+// const isCity = query => CITY_REGEX.test(query);
+
 export const setUrl = payload => {
   const { query, country, unit } = payload;
+  if (!query) return '';
   const commaCountry = country ? ',' + country : '';
   const KEY = process.env.REACT_APP_WEATHER;
-  return `https://api.openweathermap.org/data/2.5/weather?q=${query}${commaCountry}&appid=${KEY}&units=${unit}`;
+  const cityOrZip = `q=${query}`;
+  // const cityOrZip = isCity(query) ? `q=${query}` : `zip=${query}`;
+  return `https://api.openweathermap.org/data/2.5/weather?${cityOrZip}${commaCountry}&appid=${KEY}&units=${unit}`;
 };
 
 export const urlFriendly = text => text.replace(/\s+/gi, '').toLowerCase();
