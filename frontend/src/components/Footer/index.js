@@ -8,6 +8,21 @@ const SFooter = styled(Footer)`
   color: white !important;
   display: flex;
   justify-content: center;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    :hover {
+      color: rgba(222, 222, 222, 0.5);
+    }
+  }
 `;
 
-export default () => <SFooter>Footer</SFooter>;
+export default () => (
+  <SFooter>
+    <a target="_blank" href="https://github.com/kevinlee6">
+      Kevin Lee
+    </a>
+  </SFooter>
+);
