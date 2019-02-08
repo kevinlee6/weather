@@ -8,7 +8,13 @@ import EmailAndPasswordFields from './EmailAndPasswordFields';
 // import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
 import Buttons from './Buttons';
-import { register, signIn, initUnit, updateWeather } from 'actions';
+import {
+  register,
+  signIn,
+  initUnit,
+  updateWeather,
+  initFavorite,
+} from 'actions';
 import { REGISTER, SIGN_IN } from 'constant';
 import { SignInSchema, RegisterSchema } from './schema';
 
@@ -18,6 +24,7 @@ class AuthForm extends Component {
       signIn,
       register,
       initUnit,
+      initFavorite,
       updateWeather,
       command,
       history,
@@ -52,6 +59,8 @@ class AuthForm extends Component {
                 initUnit(unit);
                 updateWeather(unit);
               }
+              const favorite = resolve && resolve.user_locations;
+              initFavorite(favorite);
               history.push('/');
               message.success('Signed in');
             }
@@ -113,7 +122,7 @@ const mapStateToProps = state => ({ unit: state.unit.unit });
 export default withRouter(
   connect(
     mapStateToProps,
-    { register, signIn, initUnit, updateWeather }
+    { register, signIn, initUnit, updateWeather, initFavorite }
   )(AuthForm)
 );
 

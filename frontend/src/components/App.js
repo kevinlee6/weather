@@ -18,7 +18,9 @@ class App extends Component {
     }
     const favorite = initValues && initValues.user_locations;
     favorite && initFavorite(favorite);
-    await fetchWeather({ query: 'New York', unit: unit || this.props.unit });
+    const sample = { city: 'New York', country: 'US' };
+    const { city, country } = (favorite && favorite[0]) || sample;
+    await fetchWeather({ query: city, country, unit: unit || this.props.unit });
   }
 
   render() {
