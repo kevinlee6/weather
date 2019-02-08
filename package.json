@@ -16,12 +16,10 @@
     "postinstall": "npm run build && npm run deploy",
     "frontend": "npm run start --prefix frontend",
     "server": "rails s -p 3001",
-    "dev": "concurrently \"npm run frontend\" \"npm run server\""
+    "dev": "foreman start -f Procfile.dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^4.1.0"
-  }
+  "devDependencies": {}
 }

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include AuthHelper
+  before_action :sanitize_params, only: [:create]
 
   def create
     # reject if password != password_confirmation
@@ -8,9 +9,7 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     if @user.save
-      sign_in
-      # Don't need anyone seeing password-related stuff after save
-      # render json: @user.to_json(only: :email), status: :created
+      sign_in user_params
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -38,6 +37,10 @@ class UsersController < ApplicationController
   private
     def unit_param
       params.permit(:unit)
+    end
+    
+    def sanitize_params
+      params[:email].downcase!
     end
 
     def user_params
