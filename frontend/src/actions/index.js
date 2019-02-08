@@ -1,9 +1,11 @@
 import axios from 'axios';
 import {
   AUTH_USER,
+  SIGN_OUT,
   SET_BACKGROUND,
   FETCH_WEATHER,
   SET_UNIT,
+  RESET_FAVORITE,
   UPDATE_WEATHER,
   TOGGLE_FAVORITE,
   INIT_UNIT,
@@ -35,8 +37,12 @@ export const signIn = payload => ({
 });
 
 export const signOut = () => ({
-  type: AUTH_USER,
+  type: SIGN_OUT,
   callAPI: () => axios.delete('/auth', options),
+});
+
+export const resetFavorite = () => ({
+  type: RESET_FAVORITE,
 });
 
 // weather reducer

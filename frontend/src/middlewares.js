@@ -38,6 +38,11 @@ const callAPIMiddleware = ({ dispatch }) => next => action => {
         dispatch({ type: FAILURE, payload: { error: 'There is an error.' } });
       } else {
         dispatch({ type: SUCCESS, payload: data });
+
+        // monkey patch for now
+        if (type === 'SIGN_OUT') {
+          dispatch({ type: 'RESET_FAVORITE' });
+        }
       }
       return data;
     },

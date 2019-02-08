@@ -1,6 +1,6 @@
 import { INIT_FAVORITE, TOGGLE_FAVORITE } from 'actions/types';
 import { suffixAsync } from 'helpers';
-import { REORDER_FAVORITE } from '../actions/types';
+import { REORDER_FAVORITE, RESET_FAVORITE } from '../actions/types';
 
 const [
   TOGGLE_FAVORITE_REQUEST,
@@ -23,6 +23,9 @@ const initialState = {
 export default (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {
+    case RESET_FAVORITE: {
+      return initialState;
+    }
     case INIT_FAVORITE: {
       // favorite is array of objects
       const { favorite } = payload;
