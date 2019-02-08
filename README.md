@@ -2,7 +2,9 @@
 
 Stay up-to-date with the latest weather! Search weather conditions of different cities over the world with data provided from OpenWeatherMap. Create an account to save/organize locations.
 
-![Mobile home page](/media/mobile-homepage.png)
+<p align="center">
+  <img src='./media/mobile-homepage.png' alt='Mobile home page sample.' />
+</p>
 
 ## Tech Stack
 
