@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { message } from 'antd';
 import styled from 'styled-components';
+import withAuth from 'withAuth';
 import EmailAndPasswordFields from './EmailAndPasswordFields';
 // import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
@@ -119,12 +121,22 @@ class AuthForm extends Component {
 
 const mapStateToProps = state => ({ unit: state.unit.unit });
 
-export default withRouter(
+const actionCreators = {
+  register,
+  signIn,
+  initUnit,
+  updateWeather,
+  initFavorite,
+};
+
+export default compose(
+  withRouter,
+  withAuth,
   connect(
     mapStateToProps,
-    { register, signIn, initUnit, updateWeather, initFavorite }
-  )(AuthForm)
-);
+    actionCreators
+  )
+)(AuthForm);
 
 const SForm = styled(Form)`
   width: 40%;
