@@ -1,23 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { reorderFavorite } from "actions";
-import { Drawer, Icon as AntdIcon } from "antd";
-import AuthLinks from "./AuthLinks";
-import FavoriteList from "./FavoriteList";
-import { DragDropContext } from "react-beautiful-dnd";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { reorderFavorite, showSidebar, hideSidebar } from 'actions';
+import { Drawer, Icon as AntdIcon } from 'antd';
+import AuthLinks from './AuthLinks';
+import FavoriteList from './FavoriteList';
+import { DragDropContext } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
 class Sidebar extends Component {
-  state = { visible: false };
-
-  showDrawer = () => {
-    this.setState({ visible: true });
-  };
-
-  onClose = () => {
-    this.setState({ visible: false });
-  };
-
   onDragEnd = result => {
     const { reorderFavorite } = this.props;
     const { destination, source } = result;
@@ -31,25 +21,25 @@ class Sidebar extends Component {
     // priority starts at 1; not zero-index based
     reorderFavorite({
       destination: destination.index + 1,
-      source: source.index + 1
+      source: source.index + 1,
     });
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, sidebar, showSidebar, hideSidebar } = this.props;
     const { authenticated } = auth;
     return (
       <div>
         <Icon
           className="sidebar-icon"
           type="menu-unfold"
-          onClick={this.showDrawer}
+          onClick={showSidebar}
         />
         <Drawer
-          title={<AuthLinks closeDrawer={this.onClose} />}
+          title={<AuthLinks />}
           placement="left"
-          onClose={this.onClose}
-          visible={this.state.visible}
+          onClose={hideSidebar}
+          visible={sidebar}
         >
           {authenticated ? (
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -68,13 +58,13 @@ class Sidebar extends Component {
 }
 
 const mapStateToProps = state => {
-  const { auth } = state;
-  return { auth };
+  const { auth, sidebar } = state;
+  return { auth, sidebar };
 };
 
 export default connect(
   mapStateToProps,
-  { reorderFavorite }
+  { reorderFavorite, showSidebar, hideSidebar }
 )(Sidebar);
 
 const Div = styled.div`
