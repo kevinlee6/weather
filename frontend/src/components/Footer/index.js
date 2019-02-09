@@ -1,6 +1,6 @@
-import React from 'react';
-import { Layout } from 'antd';
-import styled from 'styled-components';
+import React from "react";
+import { Layout } from "antd";
+import styled from "styled-components";
 const { Footer } = Layout;
 
 const SFooter = styled(Footer)`
@@ -21,7 +21,11 @@ const SFooter = styled(Footer)`
 
 export default () => (
   <SFooter>
-    <a target="_blank" href="https://github.com/kevinlee6">
+    <a
+      rel="noopener noreferrer"
+      target="_blank"
+      href="https://github.com/kevinlee6"
+    >
       Kevin Lee
     </a>
   </SFooter>
