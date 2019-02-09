@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "(cd frontend/ && npm install && npm run build)",
     "deploy": "cp -a frontend/build/. public/",
-    "postinstall": "npm run build && npm run deploy",
+    "heroku-postbuild": "npm run build && npm run deploy",
     "frontend": "npm run start --prefix frontend",
     "server": "rails s -p 3001",
     "dev": "foreman start -f Procfile.dev"
