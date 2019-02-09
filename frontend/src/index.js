@@ -18,7 +18,7 @@ import "./index.css";
 import { message } from "antd";
 import axios from "axios";
 axios.defaults.baseURL =
-  process.env.REACT_APP_HEROKU_URL || "http://localhost:3001/api/";
+  process.env.REACT_APP_PRODUCTION_URL || "http://localhost:3001/api/";
 message.config({ maxCount: 2, duration: 1 });
 
 const root = document.getElementById("root");
