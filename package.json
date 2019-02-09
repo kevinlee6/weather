@@ -3,23 +3,15 @@
   "engines": {
     "node": "11.9.0"
   },
-  "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "(cd frontend/ && npm install && npm run build)",
     "deploy": "cp -a frontend/build/. public/",
-    "heroku-postbuild": "npm run build && npm run deploy",
+    "postinstall": "npm run build && npm run deploy",
     "frontend": "npm run start --prefix frontend",
     "server": "rails s -p 3001",
     "dev": "foreman start -f Procfile.dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {}
+  "author": "Kevin Lee",
+  "license": "ISC"
 }
