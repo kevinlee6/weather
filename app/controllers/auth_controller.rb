@@ -5,7 +5,8 @@ class AuthController < ApplicationController
   end
 
   def destroy
-    cookies.delete(:token, { domain: ENV['PRODUCTION_DOMAIN'] || 'localhost' })
+    prod = ENV['PRODUCTION_DOMAIN']
+    cookies.delete(:token, { domain: prod || 'localhost', secure: !!prod })
     render json: { email: '' }
   end
 
