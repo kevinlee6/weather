@@ -5,7 +5,8 @@ class AuthController < ApplicationController
   end
 
   def destroy
-    cookies.delete(:token, domain: 'localhost')
+    # reuse env var if in production; create-react-app only accepts react_app_ prefix for env
+    cookies.delete(:token, domain: ENV['REACT_APP_HEROKU_URL'] || 'localhost')
     render json: { email: '' }
   end
 

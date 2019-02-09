@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # get '*path', to: 'application#react_app', constraints: ->(request) do
-  #   !request.xhr? && request.format.html?
-  # end
+  get '*path', to: 'application#react_app', constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
