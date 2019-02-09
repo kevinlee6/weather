@@ -50,7 +50,7 @@ export const convertUnitsInState = (state, unit) => {
   const newTemp = { ...temp };
   for (const k in newTemp) {
     const v = newTemp[k];
-    newTemp[k] = newTemp[k] && convertTemp(v, unit);
+    newTemp[k] = Number.isInteger(v) && convertTemp(v, unit);
   }
   windSpeed = windSpeed && convertSpeed(windSpeed, unit);
   return {

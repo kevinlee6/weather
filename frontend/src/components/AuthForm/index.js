@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { message } from 'antd';
 import styled from 'styled-components';
-import withAuth from 'withAuth';
 import EmailAndPasswordFields from './EmailAndPasswordFields';
 // import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
@@ -29,7 +26,6 @@ class AuthForm extends Component {
       initFavorite,
       updateWeather,
       command,
-      history,
     } = this.props;
     const currUnit = this.props.unit;
     switch (command) {
@@ -40,7 +36,6 @@ class AuthForm extends Component {
             if (error) {
               return message.error(error);
             } else {
-              history.push('/');
               message.success('Welcome!');
             }
           },
@@ -63,7 +58,6 @@ class AuthForm extends Component {
               }
               const favorite = resolve && resolve.user_locations;
               initFavorite(favorite);
-              history.push('/');
               message.success('Signed in');
             }
           },
@@ -129,13 +123,9 @@ const actionCreators = {
   initFavorite,
 };
 
-export default compose(
-  withRouter,
-  withAuth,
-  connect(
-    mapStateToProps,
-    actionCreators
-  )
+export default connect(
+  mapStateToProps,
+  actionCreators
 )(AuthForm);
 
 const SForm = styled(Form)`
