@@ -11,6 +11,8 @@ import {
   INIT_UNIT,
   INIT_FAVORITE,
   REORDER_FAVORITE,
+  SHOW_SIDEBAR,
+  HIDE_SIDEBAR,
 } from './types';
 import { APPJSON } from 'constant';
 import { setUrl } from 'helpers';
@@ -20,7 +22,7 @@ const options = {
   withCredentials: true,
 };
 
-// auth reducer
+// auth
 export const register = payload => ({
   type: AUTH_USER,
   callAPI: () => axios.post('/users', payload, options),
@@ -41,41 +43,14 @@ export const signOut = () => ({
   callAPI: () => axios.delete('/auth', options),
 });
 
+// favorite
 export const resetFavorite = () => ({
   type: RESET_FAVORITE,
-});
-
-// weather reducer
-export const fetchWeather = payload => ({
-  type: FETCH_WEATHER,
-  callAPI: () => axios.get(setUrl(payload)),
 });
 
 export const initFavorite = favorite => ({
   type: INIT_FAVORITE,
   payload: { favorite },
-});
-
-export const initUnit = unit => ({
-  type: INIT_UNIT,
-  payload: { unit },
-});
-
-export const setUnit = unit => ({
-  type: SET_UNIT,
-  callAPI: () => axios.post('/users/toggle_unit', { unit }, options),
-  payload: { unit },
-  reduxFirst: true,
-});
-
-export const setBackground = payload => ({
-  type: SET_BACKGROUND,
-  payload,
-});
-
-export const updateWeather = unit => ({
-  type: UPDATE_WEATHER,
-  payload: { unit },
 });
 
 export const toggleFavorite = payload => ({
@@ -88,4 +63,42 @@ export const reorderFavorite = payload => ({
   callAPI: () => axios.patch('/user_locations', payload, options),
   payload,
   reduxFirst: true,
+});
+
+// weather
+export const fetchWeather = payload => ({
+  type: FETCH_WEATHER,
+  callAPI: () => axios.get(setUrl(payload)),
+});
+
+export const updateWeather = unit => ({
+  type: UPDATE_WEATHER,
+  payload: { unit },
+});
+
+// unit
+export const initUnit = unit => ({
+  type: INIT_UNIT,
+  payload: { unit },
+});
+
+export const setUnit = unit => ({
+  type: SET_UNIT,
+  callAPI: () => axios.post('/users/toggle_unit', { unit }, options),
+  payload: { unit },
+  reduxFirst: true,
+});
+
+// sidebar
+export const showSidebar = () => ({
+  type: SHOW_SIDEBAR,
+});
+
+export const hideSidebar = () => ({
+  type: HIDE_SIDEBAR,
+});
+
+export const setBackground = payload => ({
+  type: SET_BACKGROUND,
+  payload,
 });

@@ -13,7 +13,7 @@ const FavoriteItem = ({ city, city_id, country, i, fetchWeather, unit }) => (
         {...provided.dragHandleProps}
       >
         <ListItem
-          handleclick={() => fetchWeather({ query: city, country, unit })}
+          handleClick={() => fetchWeather({ query: city, country, unit })}
         >
           {city}, {country}
         </ListItem>
