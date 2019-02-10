@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  before_action :sanitize_params, only: [:create]
   include AuthHelper
   def create
     sign_in
@@ -17,5 +18,10 @@ class AuthController < ApplicationController
     else
       render json: { email: '' }
     end
+  end
+
+  private
+  def sanitize_params
+    params[:email].downcase!
   end
 end
