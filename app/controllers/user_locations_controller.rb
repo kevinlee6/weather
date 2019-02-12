@@ -98,10 +98,13 @@ class UserLocationsController < ApplicationController
 
   def update_priorities
     get_user_locations
-    @size = @user_locations.size
-    diff = @priority - 1
     # probably better method than this
-    @user_locations.offset(diff).update_all('priority = priority - 1')
+    @user_locations.update_all("priority =
+      CASE
+        WHEN priority > #{@priority}
+          THEN priority - 1
+        ELSE priority
+      END")
   end
 
   def user_location_params
