@@ -17,7 +17,6 @@ class App extends Component {
       initUnit(unit);
     }
     const favorite = initValues && initValues.user_locations;
-    console.log(favorite);
     favorite && initFavorite(favorite);
     const sample = { city: 'New York', country: 'US' };
     const { city, country } = (favorite && favorite[0]) || sample;
