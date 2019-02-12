@@ -10,7 +10,7 @@ beforeEach(() => {
   wrapped = mount(
     <Root>
       <Router>
-        <Buttons />
+        <Buttons command="Sign In" />
       </Router>
     </Root>
   );
@@ -20,4 +20,8 @@ afterEach(() => wrapped.unmount());
 
 it('has a button', () => {
   expect(wrapped.find('button').length).toEqual(1);
+});
+
+it('has a link', () => {
+  expect(wrapped.find('a').length).toEqual(1);
 });
