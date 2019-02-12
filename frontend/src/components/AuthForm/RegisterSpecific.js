@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { PrefixIcon } from './Styled';
-import { Form, Input, Tooltip } from 'antd';
+import { Form, Tooltip, Input } from 'antd';
 import { Field, ErrorMessage } from 'formik';
 
 export default () => (
@@ -18,6 +18,7 @@ export default () => (
           <Tooltip />
           <Input.Password
             {...field}
+            size="large"
             prefix={<PrefixIcon type="lock" />}
             placeholder="Password confirmation"
           />

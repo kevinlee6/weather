@@ -9,7 +9,12 @@ export default () => (
   <Field
     name={COUNTRY}
     render={({ field }) => (
-      <SInput {...field} width={40} placeholder={titleCase(COUNTRY)} />
+      <SInput
+        {...field}
+        size="large"
+        width={40}
+        placeholder={titleCase(COUNTRY)}
+      />
     )}
   />
 );
