@@ -19,6 +19,7 @@ export default () => (
             />
             <Input
               {...field}
+              size="large"
               prefix={<PrefixIcon type="user" />}
               placeholder="Email"
             />
@@ -40,6 +41,7 @@ export default () => (
             />
             <Input.Password
               {...field}
+              size="large"
               prefix={<PrefixIcon type="lock" />}
               placeholder="Password"
             />

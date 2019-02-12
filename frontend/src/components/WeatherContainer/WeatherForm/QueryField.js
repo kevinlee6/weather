@@ -7,7 +7,12 @@ export default () => (
   <Field
     name={QUERY}
     render={({ field }) => (
-      <SInput {...field} width={60} placeholder="City or Zip Code" />
+      <SInput
+        {...field}
+        width={60}
+        size="large"
+        placeholder="City or Zip Code"
+      />
     )}
   />
 );
