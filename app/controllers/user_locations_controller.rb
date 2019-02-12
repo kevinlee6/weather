@@ -37,8 +37,8 @@ class UserLocationsController < ApplicationController
     to_insert = update_params[:destination]
     return if
       to_splice == to_insert || 
-      to_splice <= 0 ||
-      to_insert <= 0 ||
+      to_splice < 0 ||
+      to_insert < 0 ||
       to_splice > size ||
       to_insert > size
 
@@ -66,7 +66,7 @@ class UserLocationsController < ApplicationController
     res = ActiveRecord::Base.connection.execute(query)
     if res
       # back to subtract one for favorite reducer to handle in frontend
-      render json: { destination: to_insert - 1, source: to_splice - 1}
+      render json: { destination: to_insert, source: to_splice}
     else
       render json: { error: 'Database error for patch request' }
     end
