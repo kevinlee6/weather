@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Root from 'Root';
 import Buttons from '../Buttons';
 
@@ -8,7 +9,9 @@ let wrapped;
 beforeEach(() => {
   wrapped = mount(
     <Root>
-      <Buttons />
+      <Router>
+        <Buttons />
+      </Router>
     </Root>
   );
 });
