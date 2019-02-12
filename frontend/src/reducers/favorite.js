@@ -33,9 +33,11 @@ export default (state = initialState, action) => {
       const byCityId = {};
       // normal for loop instead of two loops (map / reduce)
       // not keeping/reusing the payload in current form, so will mutate it
+      // database sorts it already, but sorting in front end just in case
+      favorite.sort((a, b) => a.priority - b.priority);
       favorite.forEach(el => {
-        const { priority, city_id, city, country } = el;
-        allCityIds[priority - 1] = city_id;
+        const { city_id, city, country } = el;
+        allCityIds.push(city_id);
         byCityId[city_id] = {
           city,
           country,
@@ -81,8 +83,8 @@ export default (state = initialState, action) => {
       };
     }
     case REORDER_FAVORITE: {
-      const destination = payload.destination - 1;
-      const source = payload.source - 1;
+      const destination = payload.destination;
+      const source = payload.source;
       const allCityIds = [...state.allCityIds];
       const spliced = allCityIds.splice(source, 1);
       allCityIds.splice(destination, 0, spliced[0]);

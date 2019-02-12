@@ -12,6 +12,16 @@ it('tests suffixAsync', () => {
   ]);
 });
 
+it('tests setUrl', () => {
+  const payload = {
+    query: 'New York',
+    unit: 'imperial',
+  };
+  const KEY = process.env.REACT_APP_WEATHER;
+  const res = `https://api.openweathermap.org/data/2.5/weather?q=New York&appid=${KEY}&units=imperial`;
+  expect(helpers.setUrl(payload)).toBe(res);
+});
+
 it('tests convertUnitsInState', () => {
   const state = {
     temp: {
