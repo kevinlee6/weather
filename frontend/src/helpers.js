@@ -43,7 +43,7 @@ const convertTemp = (temp, unit) =>
 const convertMPHtoMS = wind => Math.round(wind * 0.44704);
 const convertMStoMPH = wind => Math.round(wind * 2.23694);
 const convertSpeed = (wind, unit) =>
-  unit === IMPERIAL ? convertMPHtoMS(wind) : convertMStoMPH(wind);
+  unit === IMPERIAL ? convertMStoMPH(wind) : convertMPHtoMS(wind);
 
 export const convertUnitsInState = (state, unit) => {
   let { temp, windSpeed } = state;
