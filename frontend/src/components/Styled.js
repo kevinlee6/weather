@@ -12,6 +12,8 @@ export const ErrorDiv = styled.div`
   height: 1px;
 `;
 
+// 16px to disable auto-zoom in mobile devices when focus
 export const SInput = styled(Input)`
+  font-size: 16px !important;
   width: ${props => props.width}% !important;
 `;
