@@ -46,10 +46,10 @@ RSpec.describe UserLocation, type: :model do
     end
 
     context 'priority' do
-      it 'expects priority to equal one for first user location' do
+      it 'expects priority to equal zero for first user location' do
         user
         location
-        expect(created.priority).to eq 1
+        expect(created.priority).to eq 0
       end
 
       it 'expects priority to increment by 1 per creation' do
@@ -58,7 +58,7 @@ RSpec.describe UserLocation, type: :model do
         created1 = created
         location2 = create :location
         created2 = create(:user_location, location_id: location2.id)
-        expect(created2.priority).to eq 2
+        expect(created2.priority).to eq 1
       end
 
       it 'expects other users locations does not affect own priority' do
@@ -67,8 +67,8 @@ RSpec.describe UserLocation, type: :model do
         location
         created1 = create(:user_location, user_id: user1.id)
         created2 = create(:user_location, user_id: user2.id)
-        is_all_one = [created1, created2].all? { |x| x.priority == 1 }
-        expect(is_all_one).to eq true
+        is_all_zero = [created1, created2].all? { |x| x.priority == 0 }
+        expect(is_all_zero).to eq true
       end
     end
   end
