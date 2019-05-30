@@ -30,7 +30,7 @@ Stay up-to-date with the latest weather! Search weather conditions of different 
 
 - APIs: OpenWeatherMap
 
-## Database Architecure
+## Database Architecture
 
 There are three tables: users, locations, and user_locations.
 
@@ -42,18 +42,18 @@ There are three tables: users, locations, and user_locations.
 
 ## Design considerations
 
-The front end and back end runs on separate servers. It is more modular this way; I actually started this project with MERN stack, but felt like I needed to use some joins/relations. The frontend portion was directly transferred from the old project to this project with little to no changes. I could have used Express/Postgres combo, but wanted to expand/refresh on Rails knowledge.
+The front end and back end run on separate servers. It is more modular this way; I actually started this project with MERN stack but felt like I needed to use some joins/relations. The frontend portion was directly transferred from the old project to this project with little to no changes. I could have used Express/Postgres combo, but wanted to expand/refresh on Rails knowledge.
 
 The site is expected to be mobile responsiveness; only tested mobile displays from Chrome Developer Tools' Device Toolkit.
 
 Redux was used as state management store since there are many components communicating with each other and overall easier to manage after writing the boilerplates. Redux thunk handled asynchronous requests, and custom middleware was written to reduce some boilerplate of such asynchronous actions.
 
-Ideally, I would have liked to verify backend changes before doing any frontend changes, but there is a very slight lag (rubberbanding in the case of drag and drop locations) since it hits the database before redux store. For this reason, some methods update redux store before database and optimistically expects a database commit.
+Ideally, I would have liked to verify backend changes before doing any frontend changes, but there is a very slight lag (rubber-banding in the case of drag and drop locations) since it hits the database before redux store. For this reason, some methods update redux store before database and optimistically expects a database commit.
 
 There is no schema.rb because I wanted to experiment with Postgres enums data type. Because it is tailored for Postgres/not a general data type, schema.rb could not dump the locations table so structure.sql is used instead.
 
-There may be a scalability issue as database grows, specifically user_locations table and the priority column. To maintain order and reorder the list of saved cities, the worst case scenario is that the whole priority column would need to be updated with new values (either plus or minus one). Potentially, priorities does not have to start at 1 (it currently starts at 1, and increments by 1) and can instead be arbitrary but maintain some ordering meaning. Another solution is to limit the amount of cities a user can save, such as through subscription model.
+There may be a scalability issue as database grows, specifically user_locations table and the priority column. To maintain order and reorder the list of saved cities, the worst-case scenario is that the whole priority column would need to be updated with new values (either plus or minus one). A solution is to limit the number of cities a user can save, such as through subscription model.
 
 ## Future thoughts
 
-As the app scales, I would store OpenWeatherMap's results into my own database so I query their database less, as calls are limited especially with the free plan. Current weather can be expanded to 5-day weather using cards to display information.
+As the app scales, I would store OpenWeatherMap's results into my own database, so I query their database less, as calls are limited especially with the free plan. Current weather can be expanded to 5-day weather using cards to display information.
