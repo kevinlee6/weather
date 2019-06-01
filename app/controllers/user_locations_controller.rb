@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 class UserLocationsController < ApplicationController
   include AuthHelper
   include UserLocationsHelper
-  before_action :get_user, only: [:index, :create, :reorder]
+  before_action :get_user, only: %i[index create reorder]
   before_action :get_location, only: [:create]
-  before_action :get_user_locations, only: [:index, :reorder]
+  before_action :get_user_locations, only: %i[index reorder]
 
-  def index
-  end
+  def index; end
 
   def create
-    return if !@user
-    if !@location
+    return unless @user
+
+    unless @location
       # use location.create method
       @location = Location.new(user_location_params)
-      return if !@location.save
+      return unless @location.save
     end
 
     user_id = @user.id
@@ -24,9 +26,7 @@ class UserLocationsController < ApplicationController
     else
       @user_location = UserLocation.new(user_id: user_id, location_id: location_id)
 
-      if !@user_location.save
-        destroy
-      end
+      destroy unless @user_location.save
 
       render json: { location: @location, favorite: @user_location }
     end
@@ -45,6 +45,7 @@ class UserLocationsController < ApplicationController
   end
 
   private
+
   def get_user
     @user = extract_user_from_cookie
   end

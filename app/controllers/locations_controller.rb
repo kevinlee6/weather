@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
@@ -10,6 +12,7 @@ class LocationsController < ApplicationController
   end
 
   private
+
   def set_location
     @location = Location.find(location_params)
   end
@@ -18,7 +21,5 @@ class LocationsController < ApplicationController
     params.permit(:city, :country, :city_id)
   end
 
-  def check_if_favorite
-
-  end
+  def check_if_favorite; end
 end

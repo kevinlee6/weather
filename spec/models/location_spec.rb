@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
@@ -31,7 +33,7 @@ RSpec.describe Location, type: :model do
       end
 
       it 'should validate uniqueness on db level' do
-        expect{ create(:location, city_id: created.city_id) }.to raise_error ActiveRecord::RecordInvalid
+        expect { create(:location, city_id: created.city_id) }.to raise_error ActiveRecord::RecordInvalid
       end
     end
 

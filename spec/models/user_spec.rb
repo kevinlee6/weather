@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'unit testing' do
     let(:built) { build(:user) }
-    
+
     context 'general' do
       it 'should be able to save successfully with valid input' do
         saved = built.save

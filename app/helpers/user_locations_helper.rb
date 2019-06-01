@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module UserLocationsHelper
   def handle_reorder(size, update_params)
     to_splice = update_params[:source]
     to_insert = update_params[:destination]
     return if
-      to_splice == to_insert || 
+      to_splice == to_insert ||
       to_splice < 0 ||
       to_insert < 0 ||
       to_splice > size ||
@@ -32,7 +34,7 @@ module UserLocationsHelper
 
     res = ActiveRecord::Base.connection.execute(query)
     if res
-      render json: { destination: to_insert, source: to_splice}
+      render json: { destination: to_insert, source: to_splice }
     else
       render json: { error: 'Database error for patch request' }
     end

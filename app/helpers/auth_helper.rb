@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
 module AuthHelper
   def gen_jwt(payload)
-    JWT.encode(payload, ENV['JWT_SECRET'], 'HS256') 
+    JWT.encode(payload, ENV['JWT_SECRET'], 'HS256')
   end
 
   def sign_in
-    email, password = params[:email], params[:password]
+    email = params[:email]
+    password = params[:password]
     user = User.find_by(email: email)
-    pass = user && user.authenticate(password)
+    pass = user&.authenticate(password)
     error_message = 'Username or password incorrect'
-    return render json: { error: error_message } if !pass
+    return render json: { error: error_message } unless pass
+
     payload = { email: email }
-    token = self.gen_jwt(payload)
+    token = gen_jwt(payload)
 
     if token
       # may want to have rails secrets
@@ -35,7 +39,7 @@ module AuthHelper
 
     # could maybe do sort in frontend to lessen server load
     query =
-      <<-SQL 
+      <<-SQL
         SELECT a.priority, b.city, b.country, b.city_id
         FROM user_locations AS a
         LEFT JOIN locations AS b
@@ -45,7 +49,7 @@ module AuthHelper
       SQL
 
     user_locations = ActiveRecord::Base.connection.execute(query)
-    render json: { email: email, unit: unit, user_locations: user_locations}
+    render json: { email: email, unit: unit, user_locations: user_locations }
   end
 
   # decryption methods
@@ -54,18 +58,19 @@ module AuthHelper
   end
 
   def decode_jwt(token)
-    JWT.decode token, ENV['JWT_SECRET'], true, { alg: 'HS256' }
+    JWT.decode token, ENV['JWT_SECRET'], true, alg: 'HS256'
   end
 
   def get_user_from_token(payload)
-    email_index = payload.find_index { |el| el.has_key? 'email' }
+    email_index = payload.find_index { |el| el.key? 'email' }
     email = payload[email_index]['email']
     User.find_by(email: email)
   end
 
   def extract_user_from_cookie
     token = decrypt_cookie
-    return if !token
+    return unless token
+
     payload = decode_jwt token
     get_user_from_token payload
   end

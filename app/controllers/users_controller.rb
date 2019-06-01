@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   include AuthHelper
   before_action :sanitize_params, only: [:create]
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
       current_unit = user.unit
       incoming_unit = unit_param[:unit]
       return render(json: { unit: current_unit, error: 'Units are the same' }) if incoming_unit == current_unit
+
       next_unit = current_unit == 'metric' ? 'imperial' : 'metric'
 
       if user.update_attribute(:unit, next_unit)
@@ -30,20 +33,21 @@ class UsersController < ApplicationController
         render json: user.errors, status: :unprocessable_entity
       end
     else
-      render json: unit_param 
+      render json: unit_param
     end
   end
 
   private
-    def unit_param
-      params.permit(:unit)
-    end
-    
-    def sanitize_params
-      params[:email].downcase!
-    end
 
-    def user_params
-      params.permit(:email, :password)
-    end
+  def unit_param
+    params.permit(:unit)
+  end
+
+  def sanitize_params
+    params[:email].downcase!
+  end
+
+  def user_params
+    params.permit(:email, :password)
+  end
 end

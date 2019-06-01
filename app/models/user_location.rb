@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLocation < ApplicationRecord
   before_validation(on: :create) { create_and_increment_priority }
 
@@ -9,10 +11,12 @@ class UserLocation < ApplicationRecord
   validates_uniqueness_of :location_id, scope: :user_id
 
   private
+
   def create_and_increment_priority
     user_id = self.user_id
     user = User.find user_id
-    return { error: 'No user found' } if !user
+    return { error: 'No user found' } unless user
+
     user_locations = user.user_locations
     self.priority = user_locations.length
   end

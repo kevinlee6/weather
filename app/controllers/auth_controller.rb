@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthController < ApplicationController
   before_action :sanitize_params, only: [:create]
   include AuthHelper
@@ -21,6 +23,7 @@ class AuthController < ApplicationController
   end
 
   private
+
   def sanitize_params
     params[:email].downcase!
   end

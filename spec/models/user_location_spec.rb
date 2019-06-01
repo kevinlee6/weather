@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe UserLocation, type: :model do
@@ -9,7 +11,7 @@ RSpec.describe UserLocation, type: :model do
 
     context 'general' do
       it 'can be saved successfully' do
-        user 
+        user
         location
         saved = built.save
         expect(saved).to eq true
@@ -19,7 +21,7 @@ RSpec.describe UserLocation, type: :model do
         user
         location
         saved = built.save
-        expect{ created }.to raise_error ActiveRecord::RecordInvalid
+        expect { created }.to raise_error ActiveRecord::RecordInvalid
       end
 
       it 'does not allow duplicate locations for same user on model level' do
@@ -34,14 +36,14 @@ RSpec.describe UserLocation, type: :model do
     context 'user' do
       it 'expects error when no user' do
         location
-        expect{ built.save }.to raise_error NoMethodError
+        expect { built.save }.to raise_error NoMethodError
       end
     end
 
     context 'location' do
       it 'expects error when no user' do
         user
-        expect{ built.save }.to raise_error NoMethodError
+        expect { built.save }.to raise_error NoMethodError
       end
     end
 
